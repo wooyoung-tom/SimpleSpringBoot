@@ -3,6 +3,7 @@ package wooyoung.tom.simplespringboot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import wooyoung.tom.simplespringboot.aop.TimeTraceAop;
 import wooyoung.tom.simplespringboot.repository.JpaMemberRepository;
 import wooyoung.tom.simplespringboot.repository.MemberRepository;
 import wooyoung.tom.simplespringboot.service.MemberService;
@@ -30,6 +31,11 @@ public class SpringConfig {
         // 아래에 있는 memberRepository Bean 주입
         return new MemberService(memberRepository);
     }
+
+//    @Bean
+//    public TimeTraceAop timeTraceAop() {
+//        return new TimeTraceAop();
+//    }
 
 //    @Bean
 //    public MemberRepository memberRepository() {
