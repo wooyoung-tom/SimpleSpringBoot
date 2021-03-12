@@ -13,4 +13,9 @@ open class UserService(
     open fun signingUser(user: User): User {
         return userRepository.findUserById(user.id) ?: userRepository.createUser(user.id)
     }
+
+    // 랭킹 조회
+    open fun getUserRankingList(): List<User> {
+        return userRepository.findAllUser()
+    }
 }

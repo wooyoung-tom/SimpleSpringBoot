@@ -1,5 +1,6 @@
 package wooyoung.tom.simplespringboot.controller.user
 
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RestController
 import wooyoung.tom.simplespringboot.domain.User
@@ -14,5 +15,11 @@ open class UserController(
     @PostMapping("/users/signing")
     open fun signingUser(user: User): User {
         return userService.signingUser(user)
+    }
+
+    // 랭킹 조회
+    @GetMapping("/users/ranking")
+    open fun getUserRankingList(): List<User> {
+        return userService.getUserRankingList()
     }
 }
