@@ -1,4 +1,4 @@
-package wooyoung.tom.simplespringboot.controller;
+package wooyoung.tom.simplespringboot.controller.member;
 
 public class MemberForm {
     public String getName() {

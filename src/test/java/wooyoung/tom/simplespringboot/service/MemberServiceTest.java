@@ -4,8 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import wooyoung.tom.simplespringboot.domain.Member;
-import wooyoung.tom.simplespringboot.repository.MemberRepository;
-import wooyoung.tom.simplespringboot.repository.MemoryMemberRepository;
+import wooyoung.tom.simplespringboot.repository.member.MemoryMemberRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;

@@ -1,4 +1,4 @@
-package wooyoung.tom.simplespringboot.controller;
+package wooyoung.tom.simplespringboot.controller.member;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

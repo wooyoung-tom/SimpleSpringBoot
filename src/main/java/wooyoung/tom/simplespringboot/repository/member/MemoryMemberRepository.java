@@ -1,4 +1,4 @@
-package wooyoung.tom.simplespringboot.repository;
+package wooyoung.tom.simplespringboot.repository.member;
 
 import wooyoung.tom.simplespringboot.domain.Member;
 

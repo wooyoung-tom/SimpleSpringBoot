@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import wooyoung.tom.simplespringboot.domain.Member;
-import wooyoung.tom.simplespringboot.repository.MemberRepository;
+import wooyoung.tom.simplespringboot.repository.member.MemberRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;

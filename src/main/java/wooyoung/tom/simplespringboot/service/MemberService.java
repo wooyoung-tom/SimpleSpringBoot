@@ -1,12 +1,14 @@
 package wooyoung.tom.simplespringboot.service;
 
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wooyoung.tom.simplespringboot.domain.Member;
-import wooyoung.tom.simplespringboot.repository.MemberRepository;
+import wooyoung.tom.simplespringboot.repository.member.MemberRepository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 @Transactional
 public class MemberService {
 

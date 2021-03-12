@@ -1,4 +1,4 @@
-package wooyoung.tom.simplespringboot.repository;
+package wooyoung.tom.simplespringboot.repository.member;
 
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import wooyoung.tom.simplespringboot.domain.Member;
