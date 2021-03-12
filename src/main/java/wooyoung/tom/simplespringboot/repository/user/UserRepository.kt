@@ -4,7 +4,7 @@ import wooyoung.tom.simplespringboot.domain.User
 
 interface UserRepository {
     // Create
-    fun createUser(user: User): User
+    fun createUser(userId: String): User
 
     // Read
     fun findUserById(id: String): User?

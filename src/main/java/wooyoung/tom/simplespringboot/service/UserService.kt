@@ -11,6 +11,6 @@ open class UserService(
 
     // 회원 가입 또는 로그인
     open fun signingUser(user: User): User {
-        return userRepository.findUserById(user.id) ?: userRepository.createUser(user)
+        return userRepository.findUserById(user.id) ?: userRepository.createUser(user.id)
     }
 }

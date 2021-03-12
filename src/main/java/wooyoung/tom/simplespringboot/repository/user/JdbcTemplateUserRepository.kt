@@ -16,24 +16,21 @@ open class JdbcTemplateUserRepository(
 
     private val jdbcTemplate by lazy { JdbcTemplate(dataSource) }
 
-    override fun createUser(user: User): User {
+    override fun createUser(userId: String): User {
         val jdbcInsert = SimpleJdbcInsert(jdbcTemplate)
         jdbcInsert.withTableName("user")
 
         val parameters = HashMap<String, Any>()
-        parameters["id"] = user.id
-        parameters["credit"] = user.credit
-        parameters["accumulated_credit"] = user.accumulated_credit
-        parameters["rank"] = user.rank
+        parameters["id"] = userId
 
         jdbcInsert.execute(MapSqlParameterSource(parameters))
 
-        return user
+        return User(id = userId)
     }
 
     override fun findUserById(id: String): User? {
         val result = jdbcTemplate.query(
-            "SELECT * FROM user WHERE id = ?",
+            "SELECT * FROM (SELECT *, RANK() OVER (ORDER BY user.credit DESC) rank FROM user) WHERE id = ?",
             userRowMapper(),
             id
         )
@@ -42,7 +39,7 @@ open class JdbcTemplateUserRepository(
 
     override fun findAllUser(): List<User> {
         return jdbcTemplate.query(
-            "SELECT * FROM user",
+            "SELECT * FROM (SELECT *, RANK() OVER (ORDER BY user.credit DESC) rank FROM user)",
             userRowMapper()
         )
     }
@@ -53,8 +50,12 @@ open class JdbcTemplateUserRepository(
 
     private fun userRowMapper(): RowMapper<User> {
         return RowMapper { rs: ResultSet, _: Int ->
-            User(id = rs.getString("id"))
+            User(
+                id = rs.getString("id"),
+                credit = rs.getLong("credit"),
+                accumulated_credit = rs.getLong("accumulated_credit"),
+                rank = rs.getLong("rank")
+            )
         }
     }
-
 }

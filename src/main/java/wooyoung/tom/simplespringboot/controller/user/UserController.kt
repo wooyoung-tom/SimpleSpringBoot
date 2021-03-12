@@ -10,6 +10,7 @@ open class UserController(
     private val userService: UserService
 ) {
 
+    // 회원가입 및 로그인
     @PostMapping("/users/signing")
     open fun signingUser(user: User): User {
         return userService.signingUser(user)
