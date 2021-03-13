@@ -1,6 +1,5 @@
 package wooyoung.tom.simplespringboot.repository.user
 
-import wooyoung.tom.simplespringboot.domain.Response
 import wooyoung.tom.simplespringboot.domain.User
 
 interface UserRepository {
