@@ -1,6 +1,7 @@
 package wooyoung.tom.simplespringboot.service
 
 import org.springframework.stereotype.Service
+import wooyoung.tom.simplespringboot.domain.Response
 import wooyoung.tom.simplespringboot.domain.User
 import wooyoung.tom.simplespringboot.repository.user.UserRepository
 
@@ -10,12 +11,17 @@ open class UserService(
 ) {
 
     // 회원 가입 또는 로그인
-    open fun signingUser(user: User): User {
-        return userRepository.findUserById(user.id) ?: userRepository.createUser(user.id)
+    open fun signingUser(id: String): User {
+        return userRepository.findUserById(id) ?: userRepository.createUser(id)
     }
 
     // 랭킹 조회
     open fun getUserRankingList(): List<User> {
         return userRepository.findAllUser()
+    }
+
+    // 크레딧 업데이트
+    open fun updateUserCredit(userId: String, credit: Long): Int {
+        return userRepository.updateUserCredit(userId, credit)
     }
 }

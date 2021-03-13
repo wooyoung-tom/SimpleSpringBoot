@@ -1,4 +1,4 @@
-package wooyoung.tom.simplespringboot.controller;
+package wooyoung.tom.simplespringboot.controller.start;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

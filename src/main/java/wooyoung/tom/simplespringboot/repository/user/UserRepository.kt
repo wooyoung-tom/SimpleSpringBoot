@@ -1,5 +1,6 @@
 package wooyoung.tom.simplespringboot.repository.user
 
+import wooyoung.tom.simplespringboot.domain.Response
 import wooyoung.tom.simplespringboot.domain.User
 
 interface UserRepository {
@@ -11,5 +12,5 @@ interface UserRepository {
     fun findAllUser(): List<User>
 
     // Update
-    fun updateUser(user: User): User
+    fun updateUserCredit(userId: String, credit: Long): Int
 }
