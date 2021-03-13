@@ -1,7 +1,6 @@
 package wooyoung.tom.simplespringboot.repository.location
 
 import wooyoung.tom.simplespringboot.domain.Location
-import wooyoung.tom.simplespringboot.dto.LocationDTO
 
 interface LocationRepository {
 

@@ -6,7 +6,7 @@ import javax.persistence.Id
 @Entity
 class Location(
     @Id
-    val id: Long,
+    val id: Long = 0,
     val lnglat: String,
     val name: String
 )
