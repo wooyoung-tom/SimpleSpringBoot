@@ -5,12 +5,9 @@ import org.springframework.jdbc.core.RowMapper
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert
 import org.springframework.stereotype.Repository
-import org.springframework.transaction.annotation.Transactional
-import wooyoung.tom.simplespringboot.domain.Response
 import wooyoung.tom.simplespringboot.domain.User
 import java.sql.ResultSet
 import javax.sql.DataSource
-import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
 
 @Repository
 open class JdbcTemplateUserRepository(
@@ -47,18 +44,11 @@ open class JdbcTemplateUserRepository(
         )
     }
 
-    @Transactional
     override fun updateUserCredit(userId: String, credit: Long): Int {
-        // User 먼저 ID 사용하여 탐색
-        val result = findUserById(userId)?.let { foundUser ->
-            val updatedCredit = foundUser.credit + credit
-            jdbcTemplate.update(
-                "UPDATE user SET credit = ?, accumulated_credit = ? WHERE id = ?",
-                updatedCredit, updatedCredit, userId
-            )
-        }
-
-        return result ?: -1
+        return jdbcTemplate.update(
+            "UPDATE user SET credit = ?, accumulated_credit = ? WHERE id = ?",
+            credit, credit, userId
+        )
     }
 
     private fun userRowMapper(): RowMapper<User> {
