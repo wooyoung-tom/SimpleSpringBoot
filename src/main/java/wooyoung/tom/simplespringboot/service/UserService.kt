@@ -2,7 +2,6 @@ package wooyoung.tom.simplespringboot.service
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import wooyoung.tom.simplespringboot.domain.Response
 import wooyoung.tom.simplespringboot.domain.User
 import wooyoung.tom.simplespringboot.repository.user.UserRepository
 
@@ -17,7 +16,7 @@ open class UserService(
         val foundUser = userRepository.findUserById(user.id)
 
         // 유저가 존재하면 해당 유저 return
-        return if (foundUser.isPresent) foundUser.get() else userRepository.createUser(user)
+        return if (foundUser.isPresent) foundUser.get() else userRepository.create(user)
     }
 
     // 랭킹 조회
@@ -31,7 +30,7 @@ open class UserService(
         // 먼저 크레딧 계산을 위해서 유저정보를 id 사용하여 받아온다.
         val user = userRepository.findUserById(userId)
 
-        // 유저 정보 찾아왔을 때 크레딧 계산한다.
-        return if (user.isPresent) userRepository.updateUserCredit(userId, user.get().credit + credit) else -1
+        return if (user.isPresent) userRepository.updateUserCredit(userId, user.get().credit + credit)
+        else -1
     }
 }

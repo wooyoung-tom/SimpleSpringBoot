@@ -5,7 +5,7 @@ import java.util.*
 
 interface UserRepository {
     // Create
-    fun createUser(user: User): User
+    fun create(user: User): User
 
     // Read
     fun findUserById(id: String): Optional<User>

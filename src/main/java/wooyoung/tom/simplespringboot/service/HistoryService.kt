@@ -19,5 +19,4 @@ open class HistoryService(
     open fun saveUserHistory(history: HistoryRequestDTO): Long {
         return historyRepository.createHistory(history)
     }
-
 }

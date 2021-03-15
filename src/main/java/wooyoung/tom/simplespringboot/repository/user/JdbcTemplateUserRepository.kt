@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert
 import org.springframework.stereotype.Repository
 import wooyoung.tom.simplespringboot.domain.User
+import wooyoung.tom.simplespringboot.repository.user.UserRepository
 import java.sql.ResultSet
 import java.util.*
 import javax.sql.DataSource
@@ -18,7 +19,7 @@ open class JdbcTemplateUserRepository(
 
     private val jdbcTemplate by lazy { JdbcTemplate(dataSource) }
 
-    override fun createUser(user: User): User {
+    override fun create(user: User): User {
         val jdbcInsert = SimpleJdbcInsert(jdbcTemplate)
         jdbcInsert.withTableName("user")
 
