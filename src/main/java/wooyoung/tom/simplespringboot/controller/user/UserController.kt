@@ -17,7 +17,7 @@ open class UserController(
     // 회원가입 및 로그인
     @PostMapping("/users/signing")
     open fun signingUser(@RequestBody user: User): User {
-        return userService.signingUser(user.id)
+        return userService.signingUser(user)
     }
 
     // 랭킹 조회

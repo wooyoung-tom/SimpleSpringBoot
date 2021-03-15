@@ -7,7 +7,9 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert
 import org.springframework.stereotype.Repository
 import wooyoung.tom.simplespringboot.domain.User
 import java.sql.ResultSet
+import java.util.*
 import javax.sql.DataSource
+import kotlin.collections.HashMap
 
 @Repository
 open class JdbcTemplateUserRepository(
@@ -16,30 +18,32 @@ open class JdbcTemplateUserRepository(
 
     private val jdbcTemplate by lazy { JdbcTemplate(dataSource) }
 
-    override fun createUser(userId: String): User {
+    override fun createUser(user: User): User {
         val jdbcInsert = SimpleJdbcInsert(jdbcTemplate)
         jdbcInsert.withTableName("user")
 
         val parameters = HashMap<String, Any>()
-        parameters["id"] = userId
+        parameters["id"] = user.id
+        parameters["credit"] = user.credit
+        parameters["accumulated_credit"] = user.accumulated_credit
 
         jdbcInsert.execute(MapSqlParameterSource(parameters))
 
-        return User(id = userId)
+        return user
     }
 
-    override fun findUserById(id: String): User? {
+    override fun findUserById(id: String): Optional<User> {
         val result = jdbcTemplate.query(
-            "SELECT * FROM (SELECT *, RANK() OVER (ORDER BY user.credit DESC) rank FROM user) WHERE id = ?",
+            "SELECT * FROM (SELECT *, RANK() OVER (ORDER BY user.credit DESC) as ranking FROM user) SUB WHERE id = ?",
             userRowMapper(),
             id
         )
-        return if (result.stream().count() == 0L) null else result.stream().findAny().get()
+        return result.stream().findAny()
     }
 
     override fun findAllUser(): List<User> {
         return jdbcTemplate.query(
-            "SELECT * FROM (SELECT *, RANK() OVER (ORDER BY user.credit DESC) rank FROM user) ORDER BY rank ASC",
+            "SELECT * FROM (SELECT *, RANK() OVER (ORDER BY user.credit DESC) as ranking FROM user) SUB ORDER BY SUB.ranking ASC",
             userRowMapper()
         )
     }
@@ -57,7 +61,7 @@ open class JdbcTemplateUserRepository(
                 id = rs.getString("id"),
                 credit = rs.getLong("credit"),
                 accumulated_credit = rs.getLong("accumulated_credit"),
-                rank = rs.getLong("rank")
+                rank = rs.getLong("ranking")
             )
         }
     }

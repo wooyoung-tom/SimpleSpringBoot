@@ -1,13 +1,14 @@
 package wooyoung.tom.simplespringboot.repository.user
 
 import wooyoung.tom.simplespringboot.domain.User
+import java.util.*
 
 interface UserRepository {
     // Create
-    fun createUser(userId: String): User
+    fun createUser(user: User): User
 
     // Read
-    fun findUserById(id: String): User?
+    fun findUserById(id: String): Optional<User>
     fun findAllUser(): List<User>
 
     // Update

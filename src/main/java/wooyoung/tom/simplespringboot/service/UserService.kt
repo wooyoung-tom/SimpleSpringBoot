@@ -12,8 +12,12 @@ open class UserService(
 ) {
 
     // 회원 가입 또는 로그인
-    open fun signingUser(id: String): User {
-        return userRepository.findUserById(id) ?: userRepository.createUser(id)
+    @Transactional
+    open fun signingUser(user: User): User {
+        val foundUser = userRepository.findUserById(user.id)
+
+        // 유저가 존재하면 해당 유저 return
+        return if (foundUser.isPresent) foundUser.get() else userRepository.createUser(user)
     }
 
     // 랭킹 조회
@@ -24,17 +28,10 @@ open class UserService(
     // 크레딧 업데이트
     @Transactional
     open fun updateUserCredit(userId: String, credit: Long): Int {
-        // FIXME 현재 사용자의 credit은 DB에서 받아오지만
-        //  parameter 로 받아온 credit과 연산이 진행되지 않는다.
-
         // 먼저 크레딧 계산을 위해서 유저정보를 id 사용하여 받아온다.
         val user = userRepository.findUserById(userId)
 
-        // 유저 크레딧 계산한다.
-        return if (user != null) {
-            userRepository.updateUserCredit(userId, user.credit + credit)
-        } else {
-            -1
-        }
+        // 유저 정보 찾아왔을 때 크레딧 계산한다.
+        return if (user.isPresent) userRepository.updateUserCredit(userId, user.get().credit + credit) else -1
     }
 }
