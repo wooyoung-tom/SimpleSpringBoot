@@ -44,7 +44,7 @@ open class JdbcTemplateUserRepository(
 
     override fun findAllUser(): List<User> {
         return jdbcTemplate.query(
-            "SELECT * FROM (SELECT *, RANK() OVER (ORDER BY user.credit DESC) as ranking FROM user) SUB ORDER BY SUB.ranking ASC",
+            "SELECT * FROM (SELECT *, RANK() OVER (ORDER BY user.credit DESC) as ranking FROM user) SUB ORDER BY ranking ASC",
             userRowMapper()
         )
     }
