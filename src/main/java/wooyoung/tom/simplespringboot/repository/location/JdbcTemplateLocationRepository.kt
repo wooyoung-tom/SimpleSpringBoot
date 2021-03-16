@@ -7,8 +7,7 @@ import wooyoung.tom.simplespringboot.domain.Location
 import java.sql.ResultSet
 import javax.sql.DataSource
 
-@Repository
-open class LocationJdbcTemplateRepository(
+open class JdbcTemplateLocationRepository(
     private val dataSource: DataSource
 ) : LocationRepository {
 

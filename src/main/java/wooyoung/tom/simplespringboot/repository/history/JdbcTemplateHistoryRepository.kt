@@ -10,7 +10,6 @@ import wooyoung.tom.simplespringboot.dto.HistoryRequestDTO
 import java.sql.ResultSet
 import javax.sql.DataSource
 
-@Repository
 open class JdbcTemplateHistoryRepository(
     private val dataSource: DataSource
 ) : HistoryRepository {

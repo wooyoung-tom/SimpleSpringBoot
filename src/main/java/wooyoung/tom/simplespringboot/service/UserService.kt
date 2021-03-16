@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import wooyoung.tom.simplespringboot.domain.User
 import wooyoung.tom.simplespringboot.repository.user.UserRepository
-import wooyoung.tom.simplespringboot.repository.user.jpa.JpaUserRepository
 
 @Service
 open class UserService(
