@@ -1,9 +1,6 @@
 package wooyoung.tom.simplespringboot.controller.user
 
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import wooyoung.tom.simplespringboot.domain.User
 import wooyoung.tom.simplespringboot.dto.UserCreditUpdateDTO
 import wooyoung.tom.simplespringboot.service.UserService
@@ -25,9 +22,15 @@ open class UserController(
         return userService.getUserRankingList()
     }
 
-    // 크레딧 업데이트
+    // 크레딧 업데이트 POST ver.
     @PostMapping("/users/update/credit")
     open fun updateUserCredit(@RequestBody userCreditInfo: UserCreditUpdateDTO): Int {
         return userService.updateUserCredit(userCreditInfo.id, userCreditInfo.credit)
+    }
+
+    // 크레딧 업데이트 PATCH ver.
+    @PatchMapping("/users/{id}/credit")
+    open fun patchUserCredit(@PathVariable id: String, @RequestBody credit: Long): Int {
+        return userService.updateUserCredit(id, credit)
     }
 }

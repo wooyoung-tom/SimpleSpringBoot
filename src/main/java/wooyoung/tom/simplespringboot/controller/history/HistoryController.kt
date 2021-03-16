@@ -11,8 +11,8 @@ open class HistoryController(
 ) {
 
     // 유저 히스토리 리스트
-    @GetMapping("/history/my")
-    open fun getUserHistoryList(@RequestHeader id: String): List<History> {
+    @GetMapping("/history/{id}")
+    open fun getUserHistoryList(@PathVariable id: String): List<History> {
         return historyService.getAllHistoryByUserId(id)
     }
 
