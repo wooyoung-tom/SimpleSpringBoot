@@ -1,4 +1,4 @@
-package wooyoung.tom.simplespringboot.controller.user
+package wooyoung.tom.simplespringboot.controller.sendygo
 
 import org.springframework.web.bind.annotation.*
 import wooyoung.tom.simplespringboot.domain.User

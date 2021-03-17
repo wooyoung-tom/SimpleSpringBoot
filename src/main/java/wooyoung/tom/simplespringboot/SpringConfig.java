@@ -1,32 +1,24 @@
 package wooyoung.tom.simplespringboot;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import okhttp3.OkHttpClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import wooyoung.tom.simplespringboot.repository.member.MemberRepository;
-import wooyoung.tom.simplespringboot.service.MemberService;
-
-import javax.persistence.EntityManager;
-import javax.sql.DataSource;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 @Configuration
 public class SpringConfig {
 
-    // DataSource 는 Spring 이 제공해준다.
-//    private DataSource dataSource;
-//
-//    private EntityManager em;
-//
-//    private final MemberRepository memberRepository;
-//
-//    @Autowired
-//    public SpringConfig(MemberRepository memberRepository) {
-//        this.memberRepository = memberRepository;
-//    }
-//
-//    @Bean
-//    public MemberService memberService() {
-//        // 아래에 있는 memberRepository Bean 주입
-//        return new MemberService(memberRepository);
-//    }
+    @Bean
+    public OkHttpClient okHttpClient() {
+        return new OkHttpClient.Builder().build();
+    }
+
+    @Bean
+    public Retrofit kakaoRetrofitBuilder(OkHttpClient okHttpClient) {
+        return new Retrofit.Builder().baseUrl("https://dapi.kakao.com")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
+                .build();
+    }
 }
