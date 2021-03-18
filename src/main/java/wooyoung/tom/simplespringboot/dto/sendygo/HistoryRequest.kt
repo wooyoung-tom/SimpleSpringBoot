@@ -1,6 +1,6 @@
-package wooyoung.tom.simplespringboot.dto
+package wooyoung.tom.simplespringboot.dto.sendygo
 
-data class HistoryRequestDTO(
+data class HistoryRequest(
     val userId: String,
     val duration: String,
     val srcName: String,

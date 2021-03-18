@@ -2,7 +2,7 @@ package wooyoung.tom.simplespringboot.controller.sendygo
 
 import org.springframework.web.bind.annotation.*
 import wooyoung.tom.simplespringboot.repository.sendygo.user.User
-import wooyoung.tom.simplespringboot.dto.UserCreditUpdateDTO
+import wooyoung.tom.simplespringboot.dto.sendygo.UserCreditRequest
 import wooyoung.tom.simplespringboot.service.sendygo.UserService
 
 @RestController
@@ -24,7 +24,7 @@ open class UserController(
 
     // 크레딧 업데이트 POST ver.
     @PostMapping("/users/update/credit")
-    open fun updateUserCredit(@RequestBody userCreditInfo: UserCreditUpdateDTO): Int {
+    open fun updateUserCredit(@RequestBody userCreditInfo: UserCreditRequest): Int {
         return userService.updateUserCredit(userCreditInfo.id, userCreditInfo.credit)
     }
 

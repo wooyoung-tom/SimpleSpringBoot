@@ -2,7 +2,7 @@ package wooyoung.tom.simplespringboot.service.sendygo
 
 import org.springframework.stereotype.Service
 import wooyoung.tom.simplespringboot.repository.sendygo.history.History
-import wooyoung.tom.simplespringboot.dto.HistoryRequestDTO
+import wooyoung.tom.simplespringboot.dto.sendygo.HistoryRequest
 import wooyoung.tom.simplespringboot.repository.sendygo.history.HistoryRepository
 
 @Service
@@ -16,7 +16,7 @@ open class HistoryService(
     }
 
     // 히스토리 저장
-    open fun saveUserHistory(history: HistoryRequestDTO): Long {
+    open fun saveUserHistory(history: HistoryRequest): Long {
         return historyRepository.createHistory(history)
     }
 }

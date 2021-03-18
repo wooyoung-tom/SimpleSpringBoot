@@ -2,7 +2,7 @@ package wooyoung.tom.simplespringboot.controller.sendygo
 
 import org.springframework.web.bind.annotation.*
 import wooyoung.tom.simplespringboot.repository.sendygo.history.History
-import wooyoung.tom.simplespringboot.dto.HistoryRequestDTO
+import wooyoung.tom.simplespringboot.dto.sendygo.HistoryRequest
 import wooyoung.tom.simplespringboot.service.sendygo.HistoryService
 
 @RestController
@@ -18,7 +18,7 @@ open class HistoryController(
 
     // 히스토리 저장하는 함수
     @PostMapping("/history/save")
-    open fun createUserHistory(@RequestBody history: HistoryRequestDTO): Long {
+    open fun createUserHistory(@RequestBody history: HistoryRequest): Long {
         return historyService.saveUserHistory(history)
     }
 }

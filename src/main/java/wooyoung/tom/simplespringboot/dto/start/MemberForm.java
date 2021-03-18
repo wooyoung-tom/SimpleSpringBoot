@@ -1,4 +1,4 @@
-package wooyoung.tom.simplespringboot.dto;
+package wooyoung.tom.simplespringboot.dto.start;
 
 public class MemberForm {
     public String getName() {

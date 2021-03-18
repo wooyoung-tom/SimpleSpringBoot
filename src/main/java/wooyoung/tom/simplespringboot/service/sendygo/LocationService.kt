@@ -2,7 +2,7 @@ package wooyoung.tom.simplespringboot.service.sendygo
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import wooyoung.tom.simplespringboot.dto.LocationDTO
+import wooyoung.tom.simplespringboot.dto.sendygo.LocationResult
 import wooyoung.tom.simplespringboot.repository.sendygo.location.LocationRepository
 
 @Service
@@ -15,10 +15,10 @@ open class LocationService(
 
     // 출발지와 도착지 받아오는 함수
     @Transactional
-    open fun getSrcAndDestination(): LocationDTO {
+    open fun getSrcAndDestination(): LocationResult {
         val src = locationRepository.findLocationById(getRandomLocationId()[0])
         val dest = locationRepository.findLocationById(getRandomLocationId()[1])
 
-        return LocationDTO(src, dest)
+        return LocationResult(src, dest)
     }
 }

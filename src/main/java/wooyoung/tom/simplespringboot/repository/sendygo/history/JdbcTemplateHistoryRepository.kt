@@ -4,7 +4,7 @@ import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.jdbc.core.RowMapper
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert
-import wooyoung.tom.simplespringboot.dto.HistoryRequestDTO
+import wooyoung.tom.simplespringboot.dto.sendygo.HistoryRequest
 import java.sql.ResultSet
 import javax.sql.DataSource
 
@@ -14,7 +14,7 @@ open class JdbcTemplateHistoryRepository(
 
     private val jdbcTemplate by lazy { JdbcTemplate(dataSource) }
 
-    override fun createHistory(history: HistoryRequestDTO): Long {
+    override fun createHistory(history: HistoryRequest): Long {
         val jdbcInsert = SimpleJdbcInsert(jdbcTemplate)
         jdbcInsert.withTableName("history").usingGeneratedKeyColumns("id")
 

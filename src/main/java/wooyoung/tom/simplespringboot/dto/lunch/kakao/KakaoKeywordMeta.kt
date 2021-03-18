@@ -1,4 +1,4 @@
-package wooyoung.tom.simplespringboot.dto.kakao
+package wooyoung.tom.simplespringboot.dto.lunch.kakao
 
 import com.google.gson.annotations.SerializedName
 
