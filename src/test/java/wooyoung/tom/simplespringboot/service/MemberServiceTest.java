@@ -3,8 +3,9 @@ package wooyoung.tom.simplespringboot.service;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import wooyoung.tom.simplespringboot.domain.Member;
-import wooyoung.tom.simplespringboot.repository.member.MemoryMemberRepository;
+import wooyoung.tom.simplespringboot.repository.start.member.Member;
+import wooyoung.tom.simplespringboot.repository.start.member.MemoryMemberRepository;
+import wooyoung.tom.simplespringboot.service.start.MemberService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;

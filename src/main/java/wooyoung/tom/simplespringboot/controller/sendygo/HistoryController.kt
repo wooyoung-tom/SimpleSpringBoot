@@ -1,9 +1,9 @@
 package wooyoung.tom.simplespringboot.controller.sendygo
 
 import org.springframework.web.bind.annotation.*
-import wooyoung.tom.simplespringboot.domain.History
+import wooyoung.tom.simplespringboot.repository.sendygo.history.History
 import wooyoung.tom.simplespringboot.dto.HistoryRequestDTO
-import wooyoung.tom.simplespringboot.service.HistoryService
+import wooyoung.tom.simplespringboot.service.sendygo.HistoryService
 
 @RestController
 open class HistoryController(

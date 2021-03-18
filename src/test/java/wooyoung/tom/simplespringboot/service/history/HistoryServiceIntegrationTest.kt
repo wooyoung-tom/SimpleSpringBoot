@@ -1,17 +1,12 @@
 package wooyoung.tom.simplespringboot.service.history
 
 import org.assertj.core.api.Assertions
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-import org.junit.jupiter.api.Assertions.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.annotation.Transactional
-import wooyoung.tom.simplespringboot.domain.History
-import wooyoung.tom.simplespringboot.repository.history.HistoryRepository
-import wooyoung.tom.simplespringboot.repository.history.JpaHistoryRepository
-import wooyoung.tom.simplespringboot.service.HistoryService
+import wooyoung.tom.simplespringboot.service.sendygo.HistoryService
 
 @SpringBootTest
 @Transactional

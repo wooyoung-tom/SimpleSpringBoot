@@ -2,8 +2,8 @@ package wooyoung.tom.simplespringboot.repository;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import wooyoung.tom.simplespringboot.domain.Member;
-import wooyoung.tom.simplespringboot.repository.member.MemoryMemberRepository;
+import wooyoung.tom.simplespringboot.repository.start.member.Member;
+import wooyoung.tom.simplespringboot.repository.start.member.MemoryMemberRepository;
 
 import java.util.List;
 

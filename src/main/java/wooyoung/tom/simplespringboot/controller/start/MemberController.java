@@ -5,9 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import wooyoung.tom.simplespringboot.domain.Member;
+import wooyoung.tom.simplespringboot.repository.start.member.Member;
 import wooyoung.tom.simplespringboot.dto.MemberForm;
-import wooyoung.tom.simplespringboot.service.MemberService;
+import wooyoung.tom.simplespringboot.service.start.MemberService;
 
 import java.util.List;
 

@@ -1,9 +1,9 @@
 package wooyoung.tom.simplespringboot.controller.sendygo
 
 import org.springframework.web.bind.annotation.*
-import wooyoung.tom.simplespringboot.domain.User
+import wooyoung.tom.simplespringboot.repository.sendygo.user.User
 import wooyoung.tom.simplespringboot.dto.UserCreditUpdateDTO
-import wooyoung.tom.simplespringboot.service.UserService
+import wooyoung.tom.simplespringboot.service.sendygo.UserService
 
 @RestController
 open class UserController(
