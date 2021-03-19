@@ -1,4 +1,4 @@
-package wooyoung.tom.simplespringboot.repository;
+package wooyoung.tom.simplespringboot.repository.start;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;

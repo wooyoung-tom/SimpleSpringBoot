@@ -1,6 +1,8 @@
 package wooyoung.tom.simplespringboot.repository.lunch.user
 
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.stereotype.Repository
 
-interface LunchUserRepository : JpaRepository<User, Long> {
+@Repository
+interface LunchUserRepository : JpaRepository<LunchUser, String> {
 }

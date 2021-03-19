@@ -1,4 +1,4 @@
-package wooyoung.tom.simplespringboot.service;
+package wooyoung.tom.simplespringboot.service.start;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

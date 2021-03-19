@@ -1,4 +1,4 @@
-package wooyoung.tom.simplespringboot.service.history
+package wooyoung.tom.simplespringboot.service.sendygo.history
 
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
@@ -10,12 +10,12 @@ import wooyoung.tom.simplespringboot.service.sendygo.HistoryService
 
 @SpringBootTest
 @Transactional
-internal open class HistoryServiceIntegrationTest {
+internal open class HistoryServiceTest {
 
     @Autowired val historyService: HistoryService? = null
 
     @Test
-    fun 유저_아이디를_통한_히스토리_검색() {
+    fun `유저 아이디를 통한 히스토리 검색`() {
         // given
         val userId = "test_id"
 

@@ -3,7 +3,7 @@ package wooyoung.tom.simplespringboot.repository.lunch.kakao
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
-import wooyoung.tom.simplespringboot.dto.lunch.kakao.KakaoKeywordResult
+import wooyoung.tom.simplespringboot.dto.lunch.kakao.KakaoKeywordResponse
 
 interface KakaoApiRepository {
 
@@ -17,5 +17,5 @@ interface KakaoApiRepository {
         @Query("radius") radius: Int,
         @Query("page") page: Int,
         @Query("size") size: Int
-    ): Call<KakaoKeywordResult>
+    ): Call<KakaoKeywordResponse>
 }

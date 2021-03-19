@@ -1,4 +1,4 @@
-package wooyoung.tom.simplespringboot.service;
+package wooyoung.tom.simplespringboot.service.start;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,7 +6,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import wooyoung.tom.simplespringboot.repository.start.member.Member;
 import wooyoung.tom.simplespringboot.repository.start.member.MemberRepository;
-import wooyoung.tom.simplespringboot.service.start.MemberService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -17,8 +16,7 @@ class MemberServiceIntegrationTest {
 
     // 테스트를 다른 곳에서 가져다 쓸 것이 아니라,
     // 테스트를 위해서만 주입을 받기 때문에 @Autowired 를 필드에서 사용해도 무관하다고 생각해도 된다.
-    @Autowired
-    MemberService memberService;
+    @Autowired MemberService memberService;
     @Autowired MemberRepository memberRepository;
 
     @Test

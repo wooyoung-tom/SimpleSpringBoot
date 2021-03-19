@@ -3,6 +3,7 @@ package wooyoung.tom.simplespringboot.repository.sendygo.user
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Id
+import javax.persistence.Table
 
 @Entity
 class User(
