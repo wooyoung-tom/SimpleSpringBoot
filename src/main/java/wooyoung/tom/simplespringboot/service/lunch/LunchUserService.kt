@@ -47,6 +47,7 @@ open class LunchUserService(
                 message = "${user.name} 등록을 완료하였습니다.",
                 body = saveResult
             )
+
         }
     }
 }
