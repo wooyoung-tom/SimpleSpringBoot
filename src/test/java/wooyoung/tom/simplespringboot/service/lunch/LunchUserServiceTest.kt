@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.transaction.annotation.Transactional
+import wooyoung.tom.simplespringboot.repository.lunch.user.LunchUser
 
 @RunWith(SpringRunner::class)
 @SpringBootTest
@@ -22,5 +23,14 @@ internal open class LunchUserServiceTest {
         val name = "test"
         val result = lunchUserService.signInUser(name)
         assertThat(result.body?.name).isEqualTo(name)
+    }
+
+    @Test
+    fun `유저 회원가입`() {
+        val newUser = LunchUser("new_test", "test_team")
+
+        val result = lunchUserService.signUpUser(newUser)
+
+        assertThat(result.message).isEqualTo("${newUser.name} 등록을 완료하였습니다.")
     }
 }
