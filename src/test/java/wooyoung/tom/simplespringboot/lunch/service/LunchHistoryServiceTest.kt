@@ -26,6 +26,6 @@ internal open class LunchHistoryServiceTest {
             category = "한식"
         )
         val result = lunchHistoryService.saveHistory(newHistory)
-        Assertions.assertThat(result.name).isEqualTo(newHistory.name)
+        Assertions.assertThat(result.body.name).isEqualTo(newHistory.name)
     }
 }

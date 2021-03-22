@@ -25,7 +25,7 @@ internal open class LunchUserServiceTest {
         val result = lunchUserService.signInUser(name)
 
         assertThat(result.body?.name).isEqualTo(name)
-        assertThat(result.is_selected).isEqualTo(false)
+        assertThat(result.selected).isEqualTo(false)
     }
 
     @Test

@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 import wooyoung.tom.simplespringboot.lunch.dto.history.LunchHistoryRequest
+import wooyoung.tom.simplespringboot.lunch.dto.history.LunchHistoryResponse
 import wooyoung.tom.simplespringboot.lunch.repository.history.LunchHistory
 import wooyoung.tom.simplespringboot.lunch.service.LunchHistoryService
 
@@ -13,13 +14,14 @@ open class LunchHistoryController(
 ) {
 
     @PostMapping("/lunch/history")
-    open fun saveHistory(@RequestBody history: LunchHistoryRequest): LunchHistory {
+    open fun saveHistory(@RequestBody history: LunchHistoryRequest): LunchHistoryResponse {
         val newHistory = LunchHistory(
             history.name,
-            history.teamName,
-            history.historyDate,
+            history.team_name,
+            history.date,
             history.category
         )
+
         return lunchHistoryService.saveHistory(history = newHistory)
     }
 }
