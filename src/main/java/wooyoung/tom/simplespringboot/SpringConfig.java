@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import wooyoung.tom.simplespringboot.repository.lunch.kakao.KakaoApiRepository;
+import wooyoung.tom.simplespringboot.lunch.repository.kakao.KakaoApiRepository;
 
 @Configuration
 public class SpringConfig {
