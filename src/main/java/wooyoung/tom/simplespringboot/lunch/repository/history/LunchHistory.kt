@@ -12,8 +12,8 @@ class LunchHistory(
     @Column(name = "team_name")
     val teamName: String,
 
-    @Column(name = "h_date")
-    val hDate: String,
+    @Column(name = "date")
+    val date: String,
 
     @Column(name = "category")
     val category: String

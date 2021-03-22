@@ -22,7 +22,7 @@ internal open class LunchHistoryServiceTest {
         val newHistory = LunchHistory(
             name = "tom",
             teamName = "Product",
-            hDate = "2020-03-21",
+            date = "2020-03-21",
             category = "한식"
         )
         val result = lunchHistoryService.saveHistory(newHistory)
