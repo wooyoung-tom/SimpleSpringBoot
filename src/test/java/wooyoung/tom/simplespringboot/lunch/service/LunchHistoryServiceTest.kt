@@ -8,6 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.transaction.annotation.Transactional
 import wooyoung.tom.simplespringboot.lunch.repository.history.LunchHistory
+import wooyoung.tom.simplespringboot.lunch.repository.history.LunchHistoryRepository
+import wooyoung.tom.simplespringboot.utils.getYesterdayDateForString
 
 @RunWith(SpringRunner::class)
 @SpringBootTest
@@ -16,6 +18,8 @@ internal open class LunchHistoryServiceTest {
 
     @Autowired
     private lateinit var lunchHistoryService: LunchHistoryService
+    @Autowired
+    private lateinit var lunchHistoryRepository: LunchHistoryRepository
 
     @Test
     fun `히스토리 저장`() {
@@ -27,5 +31,15 @@ internal open class LunchHistoryServiceTest {
         )
         val result = lunchHistoryService.saveHistory(newHistory)
         Assertions.assertThat(result.body.name).isEqualTo(newHistory.name)
+    }
+
+    @Test
+    fun `팀 이름을 통해 히스토리 리스트를 가져옴`() {
+        val teamName = "Product"
+        val date = getYesterdayDateForString()
+
+        val result = lunchHistoryRepository.findLunchHistoriesByTeamNameAndDate(teamName, date)
+
+        Assertions.assertThat(result.isEmpty()).isEqualTo(false)
     }
 }

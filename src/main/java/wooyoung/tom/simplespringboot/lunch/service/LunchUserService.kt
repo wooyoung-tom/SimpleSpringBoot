@@ -6,6 +6,7 @@ import wooyoung.tom.simplespringboot.lunch.dto.user.LunchUserResponse
 import wooyoung.tom.simplespringboot.lunch.repository.history.LunchHistoryRepository
 import wooyoung.tom.simplespringboot.lunch.repository.user.LunchUser
 import wooyoung.tom.simplespringboot.lunch.repository.user.LunchUserRepository
+import wooyoung.tom.simplespringboot.utils.getYesterdayDateForString
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -14,15 +15,6 @@ open class LunchUserService(
     private val lunchUserRepository: LunchUserRepository,
     private val lunchHistoryRepository: LunchHistoryRepository
 ) {
-
-    private fun getYesterdayDateForString(): String {
-        return SimpleDateFormat("yyyy-MM-dd")
-            .format(Calendar.getInstance().apply {
-                time = Date()
-                add(Calendar.DATE, -1)
-            }.time).toString()
-    }
-
     @Transactional
     open fun signInUser(name: String): LunchUserResponse {
         val userResult = lunchUserRepository.findById(name)
@@ -35,6 +27,7 @@ open class LunchUserService(
                 body = null,
             )
         } else {
+            // 이미 입력했는지 안했는지 확인하기 위함
             val historyResult = lunchHistoryRepository.findLunchHistoryByNameAndDate(
                 name = userResult.get().name,
                 date = getYesterdayDateForString()
