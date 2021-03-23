@@ -42,4 +42,18 @@ internal open class LunchHistoryServiceTest {
 
         Assertions.assertThat(result.isEmpty()).isEqualTo(false)
     }
+
+    @Test
+    fun `팀 이름과 날짜를 통해 히스토리 리스트를 카테고리 별로 group by`() {
+        val teamName = "Product"
+        val date = "2021-03-21"
+
+        val result = lunchHistoryRepository.findLunchHistoryResultByTeamNameAndDateGroupByCategory(
+            teamName, date
+        )
+
+        result.sortedBy { it.count }
+
+        Assertions.assertThat(result.isEmpty()).isEqualTo(false)
+    }
 }

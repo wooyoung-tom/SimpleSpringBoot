@@ -7,5 +7,6 @@ import javax.persistence.*
 class LunchUser(
     @Id
     val name: String,
-    val team_name: String
+    @Column(name = "team_name")
+    val teamName: String
 )
