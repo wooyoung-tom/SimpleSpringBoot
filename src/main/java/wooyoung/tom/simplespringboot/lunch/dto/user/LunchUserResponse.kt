@@ -5,5 +5,5 @@ import wooyoung.tom.simplespringboot.lunch.repository.user.LunchUser
 data class LunchUserResponse(
     val selected: Boolean,
     val message: String,
-    val body: LunchUser?
+    val body: LunchUser? = null
 )

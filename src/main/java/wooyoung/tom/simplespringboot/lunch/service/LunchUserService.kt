@@ -17,14 +17,15 @@ open class LunchUserService(
 ) {
     @Transactional
     open fun signInUser(name: String): LunchUserResponse {
-        val userResult = lunchUserRepository.findById(name)
 
-        // 유저가 있는지 먼저 확인한다.
+        // 먼저 유저를 이름을 통해서 찾는다.
+        val userResult = lunchUserRepository.findLunchUserByName(name)
+
+        // 유저가 있는지 확인한다.
         if (!userResult.isPresent) {
             return LunchUserResponse(
                 selected = false,
-                message = "해당 유저를 찾을 수 없습니다.",
-                body = null,
+                message = "해당 유저를 찾을 수 없습니다."
             )
         } else {
             // 이미 입력했는지 안했는지 확인하기 위함

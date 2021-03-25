@@ -26,10 +26,10 @@ data class KakaoKeywordDocument(
     val roadAddressName: String,
 
     @SerializedName("x")
-    val lat: String,
+    val lng: String,
 
     @SerializedName("y")
-    val lng: String,
+    val lat: String,
 
     @SerializedName("place_url")
     val placeUrl: String,

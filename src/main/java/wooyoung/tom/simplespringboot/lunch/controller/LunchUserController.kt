@@ -11,6 +11,7 @@ open class LunchUserController(
     private val lunchUserService: LunchUserService
 ) {
 
+    // 로그인
     @GetMapping("/lunch/users/{name}")
     open fun signIn(@PathVariable name: String): LunchUserResponse {
         return lunchUserService.signInUser(name)
