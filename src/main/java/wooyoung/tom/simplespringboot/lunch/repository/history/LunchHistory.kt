@@ -4,7 +4,7 @@ import java.sql.Date
 import javax.persistence.*
 
 @Entity
-@Table(name = "lunch_history")
+@Table(name = "LUNCH_HISTORY")
 class LunchHistory(
     @Column(name = "name")
     val name: String,
