@@ -1,6 +1,6 @@
-package wooyoung.tom.simplespringboot.lunch.repository.history
+package wooyoung.tom.simplespringboot.lunch.repository
 
-object HistoryQueries {
+object SqlQueries {
     const val findLunchHistoryResultByTeamNameAndDateGroupByCategory =
         "SELECT new wooyoung.tom.simplespringboot.lunch.dto.history.LunchHistoryResult(" +
                 "l.category, l.teamName, count(l.category), l.date" +

@@ -31,7 +31,7 @@ open class LunchHistoryService(
         val usersInTeam = lunchUserRepository.findAllByTeamName(teamName)
         val allTeamMemberCount = usersInTeam.size.toLong()
 
-        val result = lunchHistoryRepository.findLunchHistoryResultByTeamNameAndDateGroupByCategory(teamName, date)
+        val result = lunchHistoryRepository.findHistoryCount(teamName, date)
         val selectedTeamMemberCount = result.sumOf { it.count }
 
         return LunchHistoryResultResponse(

@@ -48,7 +48,7 @@ internal open class LunchHistoryServiceTest {
         val teamName = "Product"
         val date = "2021-03-21"
 
-        val result = lunchHistoryRepository.findLunchHistoryResultByTeamNameAndDateGroupByCategory(
+        val result = lunchHistoryRepository.findHistoryCount(
             teamName, date
         )
 

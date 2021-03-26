@@ -16,7 +16,7 @@ class LunchHistory(
     val date: String,
 
     @Column(name = "category")
-    val category: String
+    val category: String,
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
