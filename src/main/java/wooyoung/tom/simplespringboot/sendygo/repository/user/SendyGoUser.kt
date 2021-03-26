@@ -3,9 +3,11 @@ package wooyoung.tom.simplespringboot.sendygo.repository.user
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Id
+import javax.persistence.Table
 
 @Entity
-class User(
+@Table(name = "sendygo_user")
+class SendyGoUser(
     @Id
     @Column
     val id: String,

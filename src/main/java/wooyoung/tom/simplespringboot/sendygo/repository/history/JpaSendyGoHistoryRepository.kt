@@ -5,18 +5,18 @@ import wooyoung.tom.simplespringboot.sendygo.dto.HistoryRequest
 import javax.persistence.EntityManager
 
 @Repository
-open class JpaHistoryRepository(
+open class JpaSendyGoHistoryRepository(
     private val entityManager: EntityManager
-) : HistoryRepository {
+) : SendyGoHistoryRepository {
 
     override fun createHistory(history: HistoryRequest): Long {
         entityManager.persist(history)
         return 1
     }
 
-    override fun findAllHistoryByUserId(userId: String): List<History> {
+    override fun findAllHistoryByUserId(userId: String): List<SendyGoHistory> {
         return entityManager.createQuery(
-            "SELECT h FROM History h WHERE h.userId = :userId", History::class.java
+            "SELECT h FROM SendyGoHistory h WHERE h.userId = :userId", SendyGoHistory::class.java
         ).setParameter("userId", userId).resultList
     }
 }

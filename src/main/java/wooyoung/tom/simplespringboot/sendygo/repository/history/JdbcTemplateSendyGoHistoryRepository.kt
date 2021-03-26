@@ -8,9 +8,9 @@ import wooyoung.tom.simplespringboot.sendygo.dto.HistoryRequest
 import java.sql.ResultSet
 import javax.sql.DataSource
 
-open class JdbcTemplateHistoryRepository(
+open class JdbcTemplateSendyGoHistoryRepository(
     private val dataSource: DataSource
-) : HistoryRepository {
+) : SendyGoHistoryRepository {
 
     private val jdbcTemplate by lazy { JdbcTemplate(dataSource) }
 
@@ -31,7 +31,7 @@ open class JdbcTemplateHistoryRepository(
         return jdbcInsert.executeAndReturnKey(MapSqlParameterSource(parameters)).toLong()
     }
 
-    override fun findAllHistoryByUserId(userId: String): List<History> {
+    override fun findAllHistoryByUserId(userId: String): List<SendyGoHistory> {
         return jdbcTemplate.query(
             "SELECT * FROM history WHERE user_id = ?",
             historyRowMapper,
@@ -40,7 +40,7 @@ open class JdbcTemplateHistoryRepository(
     }
 
     private val historyRowMapper = RowMapper { rs: ResultSet, _: Int ->
-        History(
+        SendyGoHistory(
             id = rs.getLong("id"),
             userId = rs.getString("user_id"),
             duration = rs.getString("duration"),

@@ -16,8 +16,6 @@ open class KakaoApiService(
             key, query = query, category = "FD6", lat = lat, lng = lng, radius = 500, page = page
         ).execute()
 
-        println(response.isSuccessful)
-
         // 성공 및 null 이 아닐 때
         return if (response.isSuccessful) response.body() else null
     }

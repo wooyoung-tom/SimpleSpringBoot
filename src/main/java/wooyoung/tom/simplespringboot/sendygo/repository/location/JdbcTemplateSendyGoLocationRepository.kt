@@ -5,13 +5,13 @@ import org.springframework.jdbc.core.RowMapper
 import java.sql.ResultSet
 import javax.sql.DataSource
 
-open class JdbcTemplateLocationRepository(
+open class JdbcTemplateSendyGoLocationRepository(
     private val dataSource: DataSource
-) : LocationRepository {
+) : SendyGoLocationRepository {
 
     private val jdbcTemplate by lazy { JdbcTemplate(dataSource) }
 
-    override fun findLocationById(id: Long): Location? {
+    override fun findLocationById(id: Long): SendyGoLocation? {
         val result = jdbcTemplate.query(
             "SELECT * FROM location WHERE id = ?",
             locationRowMapper,
@@ -21,7 +21,7 @@ open class JdbcTemplateLocationRepository(
         return if (result.stream().count() == 0L) null else result.stream().findAny().get()
     }
 
-    override fun findAllLocation(): List<Location> {
+    override fun findAllLocation(): List<SendyGoLocation> {
         return jdbcTemplate.query(
             "SELECT * FROM location",
             locationRowMapper
@@ -29,7 +29,7 @@ open class JdbcTemplateLocationRepository(
     }
 
     private val locationRowMapper = RowMapper { rs: ResultSet, _: Int ->
-        Location(
+        SendyGoLocation(
             id = rs.getLong("id"),
             lnglat = rs.getString("lnglat"),
             name = rs.getString("name")

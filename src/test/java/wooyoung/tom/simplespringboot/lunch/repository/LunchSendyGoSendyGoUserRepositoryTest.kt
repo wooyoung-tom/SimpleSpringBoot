@@ -10,7 +10,7 @@ import wooyoung.tom.simplespringboot.lunch.repository.user.LunchUserRepository
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-open class LunchUserRepositoryTest {
+open class LunchSendyGoSendyGoUserRepositoryTest {
 
     // repository Bean 연결
     @Autowired

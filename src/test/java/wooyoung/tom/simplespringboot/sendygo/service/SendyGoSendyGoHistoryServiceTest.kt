@@ -9,9 +9,9 @@ import org.springframework.transaction.annotation.Transactional
 
 @SpringBootTest
 @Transactional
-internal open class HistoryServiceTest {
+internal open class SendyGoSendyGoHistoryServiceTest {
 
-    @Autowired val historyService: HistoryService? = null
+    @Autowired val sendyGoHistoryService: SendyGoHistoryService? = null
 
     @Test
     fun `유저 아이디를 통한 히스토리 검색`() {
@@ -19,7 +19,7 @@ internal open class HistoryServiceTest {
         val userId = "test_id"
 
         // when
-        val result = historyService?.getAllHistoryByUserId(userId)
+        val result = sendyGoHistoryService?.getAllHistoryByUserId(userId)
 
         // then
 

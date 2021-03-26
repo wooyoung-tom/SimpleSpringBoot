@@ -14,7 +14,7 @@ import wooyoung.tom.simplespringboot.utils.getYesterdayDateForString
 @RunWith(SpringRunner::class)
 @SpringBootTest
 @Transactional
-internal open class LunchHistoryServiceTest {
+internal open class LunchSendyGoSendyGoHistoryServiceTest {
 
     @Autowired
     private lateinit var lunchHistoryService: LunchHistoryService

@@ -11,27 +11,27 @@ import javax.sql.DataSource
 import kotlin.collections.HashMap
 
 @Repository
-open class JdbcTemplateUserRepository(
+open class JdbcTemplateSendyGoUserRepository(
     private val dataSource: DataSource
-) : UserRepository {
+) : SendyGoUserRepository {
 
     private val jdbcTemplate by lazy { JdbcTemplate(dataSource) }
 
-    override fun create(user: User): User {
+    override fun create(sendyGoUser: SendyGoUser): SendyGoUser {
         val jdbcInsert = SimpleJdbcInsert(jdbcTemplate)
         jdbcInsert.withTableName("user")
 
         val parameters = HashMap<String, Any>()
-        parameters["id"] = user.id
-        parameters["credit"] = user.credit
-        parameters["accumulated_credit"] = user.accumulated_credit
+        parameters["id"] = sendyGoUser.id
+        parameters["credit"] = sendyGoUser.credit
+        parameters["accumulated_credit"] = sendyGoUser.accumulated_credit
 
         jdbcInsert.execute(MapSqlParameterSource(parameters))
 
-        return user
+        return sendyGoUser
     }
 
-    override fun findUserById(id: String): Optional<User> {
+    override fun findUserById(id: String): Optional<SendyGoUser> {
         val result = jdbcTemplate.query(
             "SELECT * FROM (SELECT *, RANK() OVER (ORDER BY user.credit DESC) as ranking FROM user) SUB WHERE id = ?",
             userRowMapper(),
@@ -40,7 +40,7 @@ open class JdbcTemplateUserRepository(
         return result.stream().findAny()
     }
 
-    override fun findAllUser(): List<User> {
+    override fun findAllUser(): List<SendyGoUser> {
         return jdbcTemplate.query(
             "SELECT * FROM (SELECT *, RANK() OVER (ORDER BY user.credit DESC) as ranking FROM user) SUB ORDER BY ranking ASC",
             userRowMapper()
@@ -54,9 +54,9 @@ open class JdbcTemplateUserRepository(
         )
     }
 
-    private fun userRowMapper(): RowMapper<User> {
+    private fun userRowMapper(): RowMapper<SendyGoUser> {
         return RowMapper { rs: ResultSet, _: Int ->
-            User(
+            SendyGoUser(
                 id = rs.getString("id"),
                 credit = rs.getLong("credit"),
                 accumulated_credit = rs.getLong("accumulated_credit"),

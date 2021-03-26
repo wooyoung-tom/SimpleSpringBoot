@@ -2,13 +2,13 @@ package wooyoung.tom.simplespringboot.sendygo.repository.user
 
 import java.util.*
 
-interface UserRepository {
+interface SendyGoUserRepository {
     // Create
-    fun create(user: User): User
+    fun create(sendyGoUser: SendyGoUser): SendyGoUser
 
     // Read
-    fun findUserById(id: String): Optional<User>
-    fun findAllUser(): List<User>
+    fun findUserById(id: String): Optional<SendyGoUser>
+    fun findAllUser(): List<SendyGoUser>
 
     // Update
     fun updateUserCredit(userId: String, credit: Long): Int

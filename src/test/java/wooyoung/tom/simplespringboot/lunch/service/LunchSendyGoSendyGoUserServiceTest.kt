@@ -13,7 +13,7 @@ import wooyoung.tom.simplespringboot.lunch.repository.user.LunchUser
 @RunWith(SpringRunner::class)
 @SpringBootTest
 @Transactional
-internal open class LunchUserServiceTest {
+internal open class LunchSendyGoSendyGoUserServiceTest {
 
     @Autowired
     private lateinit var lunchUserService: LunchUserService

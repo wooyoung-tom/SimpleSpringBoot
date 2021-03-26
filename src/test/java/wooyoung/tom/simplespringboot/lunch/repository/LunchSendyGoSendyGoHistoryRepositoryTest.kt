@@ -10,7 +10,7 @@ import wooyoung.tom.simplespringboot.lunch.repository.history.LunchHistoryReposi
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-open class LunchHistoryRepositoryTest {
+open class LunchSendyGoSendyGoHistoryRepositoryTest {
 
     @Autowired
     private lateinit var repository: LunchHistoryRepository
