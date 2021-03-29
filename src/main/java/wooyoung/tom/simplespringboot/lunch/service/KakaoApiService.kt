@@ -2,7 +2,7 @@ package wooyoung.tom.simplespringboot.lunch.service
 
 import org.springframework.stereotype.Service
 import wooyoung.tom.simplespringboot.lunch.dto.kakao.KakaoKeywordResponse
-import wooyoung.tom.simplespringboot.lunch.repository.kakao.KakaoApiRepository
+import wooyoung.tom.simplespringboot.lunch.repository.KakaoApiRepository
 
 @Service
 open class KakaoApiService(

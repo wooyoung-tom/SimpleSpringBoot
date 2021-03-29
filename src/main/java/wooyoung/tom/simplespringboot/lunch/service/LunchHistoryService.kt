@@ -2,12 +2,11 @@ package wooyoung.tom.simplespringboot.lunch.service
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import wooyoung.tom.simplespringboot.lunch.dto.history.LunchHistoryRequest
 import wooyoung.tom.simplespringboot.lunch.dto.history.LunchHistoryResponse
-import wooyoung.tom.simplespringboot.lunch.dto.history.LunchHistoryResultMeta
-import wooyoung.tom.simplespringboot.lunch.dto.history.LunchHistoryResultResponse
-import wooyoung.tom.simplespringboot.lunch.repository.history.LunchHistory
-import wooyoung.tom.simplespringboot.lunch.repository.history.LunchHistoryRepository
-import wooyoung.tom.simplespringboot.lunch.repository.user.LunchUserRepository
+import wooyoung.tom.simplespringboot.lunch.entity.LunchHistory
+import wooyoung.tom.simplespringboot.lunch.repository.LunchHistoryRepository
+import wooyoung.tom.simplespringboot.lunch.repository.LunchUserRepository
 
 @Service
 open class LunchHistoryService(
@@ -15,29 +14,28 @@ open class LunchHistoryService(
     private val lunchHistoryRepository: LunchHistoryRepository
 ) {
 
-    // 히스토리 저장
-    open fun saveHistory(history: LunchHistory): LunchHistoryResponse {
-        val result = lunchHistoryRepository.save(history)
-
-        return LunchHistoryResponse(
-            message = "${result.name}의 ${result.category} 추가 완료했습니다.",
-            body = result
-        )
-    }
-
-    // 팀원들이 어떤 것을 선택했는지 가져온다.
     @Transactional
-    open fun findLunchHistoriesByTeamNameAndDate(teamName: String, date: String): LunchHistoryResultResponse {
-        val usersInTeam = lunchUserRepository.findAllByTeamName(teamName)
-        val allTeamMemberCount = usersInTeam.size.toLong()
+    open fun registerHistory(id: String, history: LunchHistoryRequest): LunchHistoryResponse {
+        val foundUserResult = lunchUserRepository.findById(id)
 
-        val result = lunchHistoryRepository.findHistoryCount(teamName, date)
-        val selectedTeamMemberCount = result.sumOf { it.count }
+        // 유저 이름으로 유저 찾아야 한다.
+        if (foundUserResult.isPresent) {
+            val foundUser = foundUserResult.get()
+            val newHistory = LunchHistory(foundUser, history.selectedCategory, history.selectedDate)
 
-        return LunchHistoryResultResponse(
-            meta = LunchHistoryResultMeta(allTeamMemberCount, selectedTeamMemberCount),
-            message = "${result.size}개의 결과를 찾았습니다.",
-            body = result.sortedByDescending { it.count }
-        )
+            val historySaveResult = lunchHistoryRepository.save(newHistory)
+
+            return LunchHistoryResponse(
+                code = "SUCCESS",
+                message = "${id}의 히스토리를 저장하였습니다.",
+                body = historySaveResult
+            )
+        } else {
+            return LunchHistoryResponse(
+                code = "FAILED",
+                message = "${id}를 찾을 수 없습니다.",
+                body = null
+            )
+        }
     }
 }

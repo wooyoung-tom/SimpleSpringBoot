@@ -1,8 +1,8 @@
 package wooyoung.tom.simplespringboot.lunch.dto.history
 
+import java.time.LocalDate
+
 data class LunchHistoryRequest(
-    val name: String,
-    val teamName: String,
-    val date: String,
-    val category: String
+    val selectedCategory: String,
+    val selectedDate: LocalDate
 )

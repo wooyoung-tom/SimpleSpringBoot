@@ -1,9 +1,9 @@
 package wooyoung.tom.simplespringboot.lunch.dto.user
 
-import wooyoung.tom.simplespringboot.lunch.repository.user.LunchUser
+import wooyoung.tom.simplespringboot.lunch.entity.LunchUser
 
 data class LunchUserResponse(
-    val selected: Boolean,
+    val code: String,
     val message: String,
-    val body: LunchUser? = null
+    val body: LunchUser?
 )

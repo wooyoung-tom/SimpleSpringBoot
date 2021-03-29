@@ -1,4 +1,4 @@
-package wooyoung.tom.simplespringboot.lunch.repository.kakao
+package wooyoung.tom.simplespringboot.lunch.repository
 
 import retrofit2.Call
 import retrofit2.http.GET
