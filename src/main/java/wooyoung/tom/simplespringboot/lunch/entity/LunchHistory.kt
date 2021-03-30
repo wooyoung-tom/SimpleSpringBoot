@@ -12,14 +12,19 @@ class LunchHistory(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
+    @Column(name = "selected_category")
+    val selectedCategory: String,
+
+    @Column(name = "selected_date")
+    val selectedDate: LocalDate,
+
     @ManyToOne
     @JoinColumn(name = "user_name")
     @JsonIgnore
     val user: LunchUser,
 
-    @Column(name = "selected_category")
-    val selectedCategory: String,
-
-    @Column(name = "selected_date")
-    val selectedDate: LocalDate
+    @ManyToOne
+    @JoinColumn(name = "team_name")
+    @JsonIgnore
+    val historyTeam: LunchTeam
 )

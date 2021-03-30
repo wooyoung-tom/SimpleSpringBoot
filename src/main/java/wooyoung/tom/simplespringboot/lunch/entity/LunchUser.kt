@@ -1,5 +1,6 @@
 package wooyoung.tom.simplespringboot.lunch.entity
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 
 @Entity
@@ -9,10 +10,11 @@ class LunchUser(
     @Id
     val name: String,
 
-    @Column(name = "team_name")
-    val teamName: String
-) {
+    @ManyToOne
+    @JoinColumn(name = "team_name")
+    @JsonIgnore
+    val userTeam: LunchTeam? = null,
 
     @OneToMany(mappedBy = "user")
-    val historyList: List<LunchHistory>? = null
-}
+    val historyList: List<LunchHistory> = ArrayList()
+)

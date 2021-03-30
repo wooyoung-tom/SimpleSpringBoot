@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wooyoung.tom.simplespringboot.spring_start.repository.Member;
 import wooyoung.tom.simplespringboot.spring_start.repository.MemberRepository;
+import wooyoung.tom.simplespringboot.spring_start.repository.SpringDataJpaMemberRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,9 +13,9 @@ import java.util.Optional;
 @Transactional
 public class MemberService {
 
-    private final MemberRepository memberRepository;
+    private final SpringDataJpaMemberRepository memberRepository;
 
-    public MemberService(MemberRepository memberRepository) {
+    public MemberService(SpringDataJpaMemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
 
@@ -41,7 +42,7 @@ public class MemberService {
         return memberRepository.findAll();
     }
 
-    public Optional<Member> findOne(Long memberId) {
-        return memberRepository.findById(memberId);
-    }
+//    public Optional<Member> findOne(Long memberId) {
+//        return memberRepository.findById(memberId);
+//    }
 }

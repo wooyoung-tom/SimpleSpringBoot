@@ -3,6 +3,6 @@ package wooyoung.tom.simplespringboot.lunch.dto.history
 import java.time.LocalDate
 
 data class LunchHistoryRequest(
-    val selectedCategory: String,
-    val selectedDate: LocalDate
+    val selected_category: String,
+    val selected_date: LocalDate
 )

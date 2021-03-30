@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.transaction.annotation.Transactional
+import wooyoung.tom.simplespringboot.lunch.entity.LunchTeam
 import wooyoung.tom.simplespringboot.lunch.entity.LunchUser
+import wooyoung.tom.simplespringboot.lunch.repository.LunchTeamRepository
 import wooyoung.tom.simplespringboot.lunch.repository.LunchUserRepository
 
 @SpringBootTest
@@ -18,19 +20,20 @@ internal open class LunchUserServiceTest {
     @Autowired
     private lateinit var lunchUserRepository: LunchUserRepository
 
+    @Autowired
+    private lateinit var lunchTeamRepository: LunchTeamRepository
+
     @Test
     fun `회원가입`() {
         // given
-        val newUser = LunchUser("new_test", "new_test_team")
+        val newTeam = LunchTeam("test_team")
+        val newUser = LunchUser("test", newTeam)
 
         // when
-        val findUser = lunchUserRepository.findById(newUser.name)
-        val result = if (!findUser.isPresent) {
-            lunchUserRepository.save(newUser)
-        } else null
+        val teamSaveResult = lunchTeamRepository.save(newTeam)
+        val userSaveResult = lunchUserRepository.save(newUser)
 
-        // then
-        Assertions.assertThat(result?.name).isEqualTo(newUser.name)
+        Assertions.assertThat(teamSaveResult.name).isEqualTo("test_team")
     }
 
     @Test
