@@ -44,7 +44,7 @@ open class LunchUserService(
         if (foundResult.isPresent) {
             // 먼저 히스토리에 오늘 날짜랑 같은지 필터링 해야한다.
             val foundUser = foundResult.get()
-            val todayHistory = foundUser.historyList.find { lunchHistory ->
+            val todayHistory = foundUser.historyList?.find { lunchHistory ->
                 lunchHistory.selectedDate == LocalDate.now()
             }
 

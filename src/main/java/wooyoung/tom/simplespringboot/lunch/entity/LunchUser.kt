@@ -14,5 +14,5 @@ class LunchUser(
 ) {
 
     @OneToMany(mappedBy = "user")
-    val historyList: List<LunchHistory> = ArrayList()
+    val historyList: List<LunchHistory>? = null
 }

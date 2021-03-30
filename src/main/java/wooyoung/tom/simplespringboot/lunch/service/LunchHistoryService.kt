@@ -21,7 +21,11 @@ open class LunchHistoryService(
         // 유저 이름으로 유저 찾아야 한다.
         if (foundUserResult.isPresent) {
             val foundUser = foundUserResult.get()
-            val newHistory = LunchHistory(foundUser, history.selectedCategory, history.selectedDate)
+            val newHistory = LunchHistory(
+                user = foundUser,
+                selectedCategory = history.selectedCategory,
+                selectedDate = history.selectedDate
+            )
 
             val historySaveResult = lunchHistoryRepository.save(newHistory)
 
