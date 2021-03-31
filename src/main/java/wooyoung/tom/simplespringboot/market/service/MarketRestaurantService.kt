@@ -39,4 +39,10 @@ open class MarketRestaurantService(
             body = convertedList
         )
     }
+
+    open fun findRestaurantSpecInfo(
+
+    ) {
+
+    }
 }

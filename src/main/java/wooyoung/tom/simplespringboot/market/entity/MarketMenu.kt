@@ -1,5 +1,6 @@
 package wooyoung.tom.simplespringboot.market.entity
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 
 @Entity
@@ -8,12 +9,15 @@ class MarketMenu(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
-    @Column(name = "restaurant_id")
-    val restaurantId: Long,
-
     @Column(name = "name")
     val name: String,
 
     @Column(name = "price")
     val price: Int
-)
+) {
+
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id")
+    @JsonIgnore
+    val menuRestaurant: MarketRestaurant? = null
+}

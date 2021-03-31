@@ -6,10 +6,12 @@ import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit4.SpringRunner
+import org.springframework.transaction.annotation.Transactional
 import wooyoung.tom.simplespringboot.market.repository.MarketRestaurantRepository
 
 @SpringBootTest
 @RunWith(SpringRunner::class)
+@Transactional
 internal open class MarketRestaurantServiceTest {
 
     @Autowired
@@ -23,5 +25,18 @@ internal open class MarketRestaurantServiceTest {
         println(findResult.size)
 
         Assertions.assertThat(findResult.isEmpty()).isEqualTo(false)
+    }
+
+    @Test
+    fun `레스토랑 메뉴 가져오기`() {
+        val restaurantId = 1L
+
+        val foundRestaurantResult = marketRestaurantRepository.findById(restaurantId)
+
+        Assertions.assertThat(foundRestaurantResult.isPresent).isEqualTo(true)
+
+        val foundRestaurant = foundRestaurantResult.get()
+
+        Assertions.assertThat(foundRestaurant.menuList.size).isEqualTo(3)
     }
 }
