@@ -13,9 +13,6 @@ data class MarketOrder(
     @Column(name = "user_id")
     val userId: Long,
 
-    @Column(name = "restaurant_id")
-    val restaurantId: Long,
-
     @Column(name = "order_date")
     val orderDate: LocalDate,
 

@@ -15,14 +15,8 @@ open class MarketRestaurantController(
     open fun findRestaurants(
         @RequestParam lat: String,
         @RequestParam lng: String,
-        @RequestParam category: String,
-        @RequestParam(required = false) favorite: Boolean,
-        @RequestParam(required = false) distance: Boolean,
-        @RequestParam(required = false) review: Boolean,
-        @RequestParam(required = false) literal: Boolean
+        @RequestParam category: String
     ): MarketRestaurantCategorized {
-        return marketRestaurantService.findRestaurantsByCategory(
-            lat, lng, category, favorite, distance, review, literal
-        )
+        return marketRestaurantService.findRestaurantsByCategory(lat, lng, category)
     }
 }

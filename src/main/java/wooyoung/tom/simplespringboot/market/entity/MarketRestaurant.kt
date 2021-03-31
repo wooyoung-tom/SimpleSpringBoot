@@ -10,7 +10,7 @@ import javax.persistence.*
  */
 @Entity
 @Table(name = "market_restaurant")
-class MarketRestaurant(
+data class MarketRestaurant(
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
@@ -34,9 +34,16 @@ class MarketRestaurant(
     val latitude: String,
 
     @Column(name = "category")
-    var category: String
-) {
+    var category: String,
 
-    @OneToMany(mappedBy = "menuRestaurant", fetch = FetchType.EAGER)
-    val menuList: List<MarketMenu> = ArrayList()
-}
+    @OneToMany(mappedBy = "menuRestaurant", fetch = FetchType.LAZY)
+    val menuList: List<MarketMenu> = ArrayList(),
+
+    @OneToMany(mappedBy = "reviewMarketRestaurant", fetch = FetchType.LAZY)
+    @JsonIgnore
+    val reviewList: List<MarketReview> = ArrayList(),
+
+    @OneToMany(mappedBy = "favoriteMarketRestaurant", fetch = FetchType.LAZY)
+    @JsonIgnore
+    val favoriteList: List<MarketFavorite> = ArrayList()
+)

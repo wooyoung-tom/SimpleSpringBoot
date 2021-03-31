@@ -1,4 +1,7 @@
 package wooyoung.tom.simplespringboot.market.repository
 
-interface MarketReviewRepository {
+import org.springframework.data.jpa.repository.JpaRepository
+import wooyoung.tom.simplespringboot.market.entity.MarketReview
+
+interface MarketReviewRepository: JpaRepository<MarketReview, Long> {
 }

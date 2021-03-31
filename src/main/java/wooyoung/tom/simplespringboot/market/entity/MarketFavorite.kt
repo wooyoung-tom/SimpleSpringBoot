@@ -11,8 +11,9 @@ data class MarketFavorite(
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    val favoriteUser: MarketUser,
+    val favoriteMarketUser: MarketUser,
 
-    @Column(name = "restaurant_id")
-    val restaurantId: Long
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id")
+    val favoriteMarketRestaurant: MarketRestaurant
 )
