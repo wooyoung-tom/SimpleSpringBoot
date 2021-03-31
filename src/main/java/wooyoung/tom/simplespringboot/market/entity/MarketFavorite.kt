@@ -4,16 +4,15 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "market_favorite")
-class MarketFavorite(
+data class MarketFavorite(
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
-    @Column(name = "restaurant_id")
-    val restaurantId: Long
-) {
-
     @ManyToOne
     @JoinColumn(name = "user_id")
-    val favoriteUser: MarketUser? = null
-}
+    val favoriteUser: MarketUser,
+
+    @Column(name = "restaurant_id")
+    val restaurantId: Long
+)

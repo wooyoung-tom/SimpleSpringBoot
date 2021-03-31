@@ -5,7 +5,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "market_user")
-class MarketUser(
+data class MarketUser(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,9 +19,8 @@ class MarketUser(
     val password: String,
 
     @Column(name = "access_token")
-    val accessToken: String
-) {
+    val accessToken: String,
 
     @OneToMany(mappedBy = "favoriteUser")
     val favoriteList: List<MarketFavorite> = ArrayList()
-}
+)

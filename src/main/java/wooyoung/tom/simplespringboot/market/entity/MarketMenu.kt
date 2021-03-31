@@ -5,7 +5,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "market_menu")
-class MarketMenu(
+data class MarketMenu(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
@@ -13,11 +13,10 @@ class MarketMenu(
     val name: String,
 
     @Column(name = "price")
-    val price: Int
-) {
+    val price: Int,
 
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
     @JsonIgnore
-    val menuRestaurant: MarketRestaurant? = null
-}
+    val menuRestaurant: MarketRestaurant
+)
