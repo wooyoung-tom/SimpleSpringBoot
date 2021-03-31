@@ -15,12 +15,8 @@ class MarketUser(
     val name: String,
 
     @JsonIgnore
-    @Column(name = "pass")
+    @Column(name = "password")
     val password: String,
-
-    @JsonIgnore
-    @Column(name = "activated")
-    val activated: Boolean,
 
     @Column(name = "access_token")
     val accessToken: String
