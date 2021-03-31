@@ -20,4 +20,8 @@ class MarketUser(
 
     @Column(name = "access_token")
     val accessToken: String
-)
+) {
+
+    @OneToMany(mappedBy = "favoriteUser")
+    val favoriteList: List<MarketFavorite> = ArrayList()
+}

@@ -8,8 +8,8 @@ import javax.persistence.*
  * @param phone_number 전화번호 nullable
  */
 @Entity
-@Table(name = "market_restaurants")
-class MarketRestaurants(
+@Table(name = "market_restaurant")
+class MarketRestaurant(
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
@@ -26,11 +26,11 @@ class MarketRestaurants(
     @Column(name = "phone_number")
     val phone_number: String? = null,
 
-    @Column(name = "latitude")
-    val latitude: String,
-
     @Column(name = "longitude")
     val longitude: String,
+
+    @Column(name = "latitude")
+    val latitude: String,
 
     @Column(name = "category")
     var category: String
