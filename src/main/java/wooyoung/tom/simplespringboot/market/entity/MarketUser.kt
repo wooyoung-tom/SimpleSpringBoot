@@ -18,9 +18,7 @@ data class MarketUser(
     @Column(name = "password")
     val password: String,
 
-    @Column(name = "access_token")
-    val accessToken: String,
-
+    @JsonIgnore
     @OneToMany(mappedBy = "favoriteMarketUser")
     val favoriteList: List<MarketFavorite> = ArrayList()
 )
