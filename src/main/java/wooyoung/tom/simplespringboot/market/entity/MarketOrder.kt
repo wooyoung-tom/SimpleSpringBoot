@@ -17,8 +17,5 @@ data class MarketOrder(
     val orderDate: LocalDate,
 
     @Column(name = "order_status")
-    val orderStatus: String,
-
-    @Column(name = "total_price")
-    val totalPrice: Int
+    val orderStatus: String = "READY",
 )
