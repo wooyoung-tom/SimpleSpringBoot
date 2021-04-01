@@ -9,11 +9,13 @@ data class MarketOrderDetail(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
-    @Column(name = "order_id")
-    val orderId: Long,
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    val orderDetailMarketOrder: MarketOrder,
 
-    @Column(name = "menu_id")
-    val menuId: Long,
+    @OneToOne
+    @JoinColumn(name = "menu_id")
+    val orderDetailMarketMenu: MarketMenu,
 
     @Column(name = "menu_cnt")
     val menuCount: Int
