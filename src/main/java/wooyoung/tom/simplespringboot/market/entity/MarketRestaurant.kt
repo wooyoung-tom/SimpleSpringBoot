@@ -36,7 +36,7 @@ data class MarketRestaurant(
     @Column(name = "category")
     var category: String,
 
-    @OneToMany(mappedBy = "menuRestaurant", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "menuMarketRestaurant", fetch = FetchType.LAZY)
     val menuList: List<MarketMenu> = ArrayList(),
 
     @OneToMany(mappedBy = "reviewMarketRestaurant", fetch = FetchType.LAZY)

@@ -24,31 +24,29 @@ open class MarketUserService(
         // 먼저 중복된 이름 있는지 확인
         val foundUser = marketUserRepository.findMarketUserByName(newUser.name)
 
-        if (foundUser == null) {
+        return if (foundUser == null) {
             val saveResult = marketUserRepository.save(newUser)
 
-            return if (saveResult.id == null) {
+            if (saveResult.id == null) {
                 MarketUserSignUpResponse("FAILED")
             } else {
                 MarketUserSignUpResponse(code = "SUCCESS")
             }
         } else {
-            return MarketUserSignUpResponse(code = "DUPLICATED")
+            MarketUserSignUpResponse(code = "DUPLICATED")
         }
     }
 
     open fun simpleSignIn(marketUserSignInRequest: MarketUserSignInRequest): MarketUserSignInResponse {
         val foundUser = marketUserRepository.findMarketUserByName(marketUserSignInRequest.name)
 
-        if (foundUser == null) {
-            return MarketUserSignInResponse(
+        return if (foundUser == null) {
+            MarketUserSignInResponse(
                 code = "NAME FAILED",
                 body = null
             )
         } else {
-            val checkPassword = foundUser.password == marketUserSignInRequest.password
-
-            return if (checkPassword) {
+            if (foundUser.password == marketUserSignInRequest.password) {
                 MarketUserSignInResponse(
                     code = "SUCCESS",
                     body = foundUser

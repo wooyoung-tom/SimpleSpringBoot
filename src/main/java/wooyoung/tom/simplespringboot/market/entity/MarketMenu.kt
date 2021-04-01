@@ -18,5 +18,5 @@ data class MarketMenu(
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
     @JsonIgnore
-    val menuRestaurant: MarketRestaurant
+    val menuMarketRestaurant: MarketRestaurant
 )

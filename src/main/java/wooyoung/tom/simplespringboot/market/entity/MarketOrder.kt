@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import java.time.LocalDate
 import javax.persistence.*
 
+// FIXME OrderStatus 칼럼 Enum Class 로 수정하는게 낫나?
 @Entity
 @Table(name = "market_order")
 data class MarketOrder(
