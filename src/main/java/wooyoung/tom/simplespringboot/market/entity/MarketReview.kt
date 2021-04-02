@@ -1,5 +1,6 @@
 package wooyoung.tom.simplespringboot.market.entity
 
+import wooyoung.tom.simplespringboot.user.MarketUserEntity
 import javax.persistence.*
 
 @Entity
@@ -11,7 +12,7 @@ data class MarketReview(
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    val reviewMarketUser: MarketUser,
+    val reviewMarketUser: MarketUserEntity,
 
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
