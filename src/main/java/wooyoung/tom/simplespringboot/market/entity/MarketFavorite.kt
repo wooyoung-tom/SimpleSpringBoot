@@ -9,11 +9,9 @@ data class MarketFavorite(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    val favoriteMarketUser: MarketUser,
+    @Column(name = "user_id")
+    val userId: Long,
 
-    @ManyToOne
-    @JoinColumn(name = "restaurant_id")
-    val favoriteMarketRestaurant: MarketRestaurant
+    @Column(name = "restaurant_id")
+    val restaurantId: Long
 )

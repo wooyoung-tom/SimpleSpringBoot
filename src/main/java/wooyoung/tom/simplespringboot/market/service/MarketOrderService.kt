@@ -3,7 +3,7 @@ package wooyoung.tom.simplespringboot.market.service
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import wooyoung.tom.simplespringboot.market.dto.order.BasketItem
-import wooyoung.tom.simplespringboot.market.dto.order.MarketOrderSaveRequest
+import wooyoung.tom.simplespringboot.market.dto.order.MarketOrderSaveItem
 import wooyoung.tom.simplespringboot.market.dto.order.MarketOrderSaveResponse
 import wooyoung.tom.simplespringboot.market.entity.MarketOrder
 import wooyoung.tom.simplespringboot.market.entity.MarketOrderDetail
@@ -30,7 +30,7 @@ open class MarketOrderService(
                     .orderDetailMarketMenu.menuMarketRestaurant.restaurantName,
                 menuList = marketOrder.orderDetailList,
                 totalPrice = marketOrder.orderDetailList.sumOf {
-                    it.orderDetailMarketMenu.price
+                    (it.orderDetailMarketMenu.price * it.menuCount)
                 }
             )
         }
@@ -38,7 +38,7 @@ open class MarketOrderService(
 
     // FIXME 코드 너무 이상함 갈아엎어야 함
     @Transactional
-    open fun saveOrder(userId: Long, menuList: MarketOrderSaveRequest): MarketOrderSaveResponse {
+    open fun saveOrder(userId: Long, menuList: List<MarketOrderSaveItem>): MarketOrderSaveResponse {
         // 새로운 전체오더 만들어서 하나 저장해놓는다.
         val newOrder = MarketOrder(
             userId = userId,
@@ -47,7 +47,7 @@ open class MarketOrderService(
 
         val saveOrderResult = marketOrderRepository.save(newOrder)
 
-        val convertedList = menuList.items.map { marketOrderSaveItem ->
+        val convertedList = menuList.map { marketOrderSaveItem ->
             // 가지고 있는 메뉴 ID 통해서 메뉴 객체 가져와야함
             val menu = marketMenuRepository.findById(marketOrderSaveItem.menuId)
 

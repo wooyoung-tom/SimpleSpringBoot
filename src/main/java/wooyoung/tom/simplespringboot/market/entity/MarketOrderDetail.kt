@@ -1,5 +1,6 @@
 package wooyoung.tom.simplespringboot.market.entity
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 
 @Entity
@@ -11,6 +12,7 @@ data class MarketOrderDetail(
 
     @ManyToOne
     @JoinColumn(name = "order_id")
+    @JsonIgnore
     val orderDetailMarketOrder: MarketOrder,
 
     @OneToOne
