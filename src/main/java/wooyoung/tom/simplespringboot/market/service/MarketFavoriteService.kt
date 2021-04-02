@@ -1,6 +1,9 @@
 package wooyoung.tom.simplespringboot.market.service
 
 import org.springframework.stereotype.Service
+import wooyoung.tom.simplespringboot.market.dto.favorite.CheckFavoriteResponse
+import wooyoung.tom.simplespringboot.market.dto.favorite.DeleteFavoriteResponse
+import wooyoung.tom.simplespringboot.market.dto.favorite.MarketFavoriteResponse
 import wooyoung.tom.simplespringboot.market.dto.restaurant.CategorizedRestaurantItem
 import wooyoung.tom.simplespringboot.market.dto.restaurant.MarketRestaurantCategorized
 import wooyoung.tom.simplespringboot.market.entity.MarketFavorite
@@ -15,19 +18,16 @@ open class MarketFavoriteService(
 ) {
 
     // 즐겨찾기 등록
-    open fun saveFavorite(userId: Long, restaurantId: Long): MarketFavorite {
+    open fun saveFavorite(userId: Long, restaurantId: Long): MarketFavoriteResponse {
         val foundRestaurant = marketRestaurantRepository.findById(restaurantId)
         val newFavoriteItem = MarketFavorite(
             userId = userId,
             favoriteMarketRestaurant = foundRestaurant.get()
         )
 
-        return marketFavoriteRepository.save(newFavoriteItem)
-    }
+        marketFavoriteRepository.save(newFavoriteItem)
 
-    // 즐겨찾기 삭제
-    open fun deleteFavorite(favoriteId: Long) {
-        marketFavoriteRepository.deleteById(favoriteId)
+        return MarketFavoriteResponse("SUCCESS")
     }
 
     open fun findFavoriteRestaurants(
@@ -62,5 +62,40 @@ open class MarketFavoriteService(
             category = category,
             body = convertedList
         )
+    }
+
+    // 내 아이디와 레스토랑 아이디를 가지고 내가 즐겨찾기 해놓은 음식점인지 확인
+    open fun checkFavorite(userId: Long, restaurantId: Long): CheckFavoriteResponse {
+        // 먼저 레스토랑 객체를 찾아와야한다.
+        val restaurant = marketRestaurantRepository.findById(restaurantId)
+
+        return if (restaurant.isPresent) {
+            val favorite = marketFavoriteRepository
+                .findMarketFavoriteByUserIdAndFavoriteMarketRestaurant(userId, restaurant.get())
+
+            if (favorite == null) CheckFavoriteResponse(checkFavorite = false)
+            else CheckFavoriteResponse(
+                favoriteId = favorite.id,
+                checkFavorite = true
+            )
+        } else CheckFavoriteResponse(checkFavorite = false)
+    }
+
+    open fun deleteFavorite(userId: Long, restaurantId: Long): DeleteFavoriteResponse {
+        // 먼저 레스토랑 객체를 찾아와야한다.
+        val restaurant = marketRestaurantRepository.findById(restaurantId)
+
+        return if (restaurant.isPresent) {
+            val favorite = marketFavoriteRepository
+                .findMarketFavoriteByUserIdAndFavoriteMarketRestaurant(userId, restaurant.get())
+
+            if (favorite == null) DeleteFavoriteResponse("FAILED")
+            else {
+                marketFavoriteRepository.deleteById(favorite.id!!)
+                DeleteFavoriteResponse("SUCCESS")
+            }
+        } else {
+            DeleteFavoriteResponse("FAILED")
+        }
     }
 }

@@ -1,9 +1,11 @@
 package wooyoung.tom.simplespringboot.market.controller
 
 import org.springframework.web.bind.annotation.*
-import wooyoung.tom.simplespringboot.market.dto.favorite.MarketFavoriteSaveRequest
+import wooyoung.tom.simplespringboot.market.dto.favorite.CheckFavoriteResponse
+import wooyoung.tom.simplespringboot.market.dto.favorite.DeleteFavoriteResponse
+import wooyoung.tom.simplespringboot.market.dto.favorite.MarketFavoriteRequest
+import wooyoung.tom.simplespringboot.market.dto.favorite.MarketFavoriteResponse
 import wooyoung.tom.simplespringboot.market.dto.restaurant.MarketRestaurantCategorized
-import wooyoung.tom.simplespringboot.market.entity.MarketFavorite
 import wooyoung.tom.simplespringboot.market.service.MarketFavoriteService
 
 @RestController
@@ -23,15 +25,24 @@ open class MarketFavoriteController(
 
     @PostMapping("/market/favorites")
     open fun saveFavoriteRestaurant(
-        @RequestBody info: MarketFavoriteSaveRequest
-    ): MarketFavorite {
+        @RequestBody info: MarketFavoriteRequest
+    ): MarketFavoriteResponse {
         return marketFavoriteService.saveFavorite(info.userId, info.restaurantId)
     }
 
-    @DeleteMapping("/market/favorites/{id}")
-    open fun deleteFavoriteRestaurant(
-        @PathVariable("id") favoriteId: Long
-    ) {
-        marketFavoriteService.deleteFavorite(favoriteId)
+    @GetMapping("/market/favorites")
+    open fun checkFavorite(
+        @RequestParam("user_id") userId: Long,
+        @RequestParam("restaurant_id") restaurantId: Long
+    ): CheckFavoriteResponse {
+        return marketFavoriteService.checkFavorite(userId, restaurantId)
+    }
+
+    @DeleteMapping("/market/favorites")
+    open fun deleteFavorite(
+        @RequestParam("user_id") userId: Long,
+        @RequestParam("restaurant_id") restaurantId: Long
+    ): DeleteFavoriteResponse {
+        return marketFavoriteService.deleteFavorite(userId, restaurantId)
     }
 }

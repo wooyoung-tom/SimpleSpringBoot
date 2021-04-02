@@ -57,7 +57,7 @@ open class MarketOrderService(
                     orderDetailMarketMenu = menu.get(),
                     menuCount = marketOrderSaveItem.menuCount
                 )
-            } else null
+            } else return MarketOrderSaveResponse("MENU NOT FOUND")
         }
 
         marketOrderDetailRepository.saveAll(convertedList)
