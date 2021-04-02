@@ -9,7 +9,7 @@ data class MarketUser(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
+    val id: Long = 0,
 
     @Column(name = "username")
     val name: String,
@@ -20,5 +20,5 @@ data class MarketUser(
 
     @JsonIgnore
     @OneToMany(mappedBy = "userId")
-    val favoriteList: List<MarketFavorite> = ArrayList()
+    val favoriteList: List<MarketFavorite> = ArrayList(),
 )
