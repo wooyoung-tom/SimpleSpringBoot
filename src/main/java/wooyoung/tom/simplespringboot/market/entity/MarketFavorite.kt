@@ -1,5 +1,6 @@
 package wooyoung.tom.simplespringboot.market.entity
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 
 @Entity
@@ -10,8 +11,10 @@ data class MarketFavorite(
     val id: Long? = null,
 
     @Column(name = "user_id")
+    @JsonIgnore
     val userId: Long,
 
-    @Column(name = "restaurant_id")
-    val restaurantId: Long
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id")
+    val favoriteMarketRestaurant: MarketRestaurant
 )

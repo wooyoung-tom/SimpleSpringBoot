@@ -19,6 +19,6 @@ data class MarketUser(
     val password: String,
 
     @JsonIgnore
-    @OneToMany(mappedBy = "favoriteMarketUser")
+    @OneToMany(mappedBy = "userId")
     val favoriteList: List<MarketFavorite> = ArrayList()
 )
