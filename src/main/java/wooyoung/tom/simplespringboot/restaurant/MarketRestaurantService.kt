@@ -1,8 +1,10 @@
 package wooyoung.tom.simplespringboot.restaurant
 
-import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
+import wooyoung.tom.simplespringboot.restaurant.dto.PagedRestaurantItem
+import wooyoung.tom.simplespringboot.utils.PagedMetaData
+import wooyoung.tom.simplespringboot.restaurant.dto.PagedRestaurantResponse
 
 @Service
 open class MarketRestaurantService(
@@ -11,8 +13,35 @@ open class MarketRestaurantService(
 
     open fun findCategorizedRestaurants(
         category: String, pageable: Pageable
-    ): Page<MarketRestaurantEntity> {
-        return marketRestaurantRepository
+    ): PagedRestaurantResponse {
+        // 페이징 결과물
+        val pagingResult = marketRestaurantRepository
             .findMarketRestaurantEntitiesByCategory(category, pageable)
+
+        val metaData = PagedMetaData(
+            end = pagingResult.isLast,
+            totalResults = pagingResult.totalElements,
+            totalPages = pagingResult.totalPages,
+            page = pagingResult.number,
+            size = pagingResult.size
+        )
+
+        val mappedContents = pagingResult.content.map {
+            PagedRestaurantItem(
+                restaurantId = it.id,
+                restaurantName = it.name,
+                category = it.category,
+                roadAddress = it.roadAddress,
+                jibunAddress = it.jibunAddress,
+                phoneNumber = it.phoneNumber,
+                longitude = it.longitude,
+                latitude = it.latitude
+            )
+        }
+
+        return PagedRestaurantResponse(
+            meta = metaData,
+            body = mappedContents
+        )
     }
 }
