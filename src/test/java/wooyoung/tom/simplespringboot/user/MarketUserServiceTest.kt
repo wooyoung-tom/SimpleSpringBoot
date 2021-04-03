@@ -48,7 +48,12 @@ internal open class MarketUserServiceTest {
         // 이름으로 존재하는 사용자인지 확인
         val foundUser = marketUserRepository.findMarketUserByUserName(givenUser.name)
 
+        // 찾은 사용자가 null 이 아니어야 한다.
         Assertions.assertThat(foundUser).isNotNull
 
+        // 비밀번호 확인
+        Assertions.assertThat(foundUser?.password).isNotNull
+        // null 이 아니면 아래 Assert 는 Not_Null
+        Assertions.assertThat(foundUser!!.password).isEqualTo(givenUser.password)
     }
 }
