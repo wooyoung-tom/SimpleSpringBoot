@@ -1,5 +1,7 @@
 package wooyoung.tom.simplespringboot.restaurant
 
+import com.fasterxml.jackson.annotation.JsonIgnore
+import wooyoung.tom.simplespringboot.menu.MarketMenuEntity
 import javax.persistence.*
 
 /**
@@ -33,10 +35,17 @@ data class MarketRestaurantEntity(
     val latitude: String,
 
     @Column(name = "category")
-    val category: String
+    val category: String,
 
     /**
-     * TODO review, favorite, order, menu 연관관계 설정
+     * TODO review, favorite, order 연관관계 설정
      *  restaurant_id 로 참조가능?
      */
+
+    /**
+     * @see menuList MarketMenuEntity 의 restaurantInMenu 로 mapping
+     */
+    @JsonIgnore
+    @OneToMany(mappedBy = "restaurantInMenu", fetch = FetchType.LAZY)
+    val menuList: List<MarketMenuEntity> = ArrayList()
 )

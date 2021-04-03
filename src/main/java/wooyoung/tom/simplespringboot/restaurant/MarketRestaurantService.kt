@@ -11,6 +11,7 @@ open class MarketRestaurantService(
     private val marketRestaurantRepository: MarketRestaurantRepository
 ) {
 
+    // 음식점 탐색 with pagination
     open fun findCategorizedRestaurants(
         category: String, pageable: Pageable
     ): PagedRestaurantResponse {
@@ -35,7 +36,8 @@ open class MarketRestaurantService(
                 jibunAddress = it.jibunAddress,
                 phoneNumber = it.phoneNumber,
                 longitude = it.longitude,
-                latitude = it.latitude
+                latitude = it.latitude,
+                menuList = it.menuList
             )
         }
 

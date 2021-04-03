@@ -15,10 +15,6 @@ data class MarketOrderDetail(
     @JsonIgnore
     val orderDetailMarketOrder: MarketOrder,
 
-    @OneToOne
-    @JoinColumn(name = "menu_id")
-    val orderDetailMarketMenu: MarketMenu,
-
     @Column(name = "menu_cnt")
     val menuCount: Int
 )

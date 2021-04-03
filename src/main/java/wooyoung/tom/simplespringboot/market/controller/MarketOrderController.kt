@@ -11,18 +11,18 @@ open class MarketOrderController(
     private val marketOrderService: MarketOrderService
 ) {
 
-    @GetMapping("/market/orders/{id}")
-    open fun findReadyOrdersByUserId(
-        @PathVariable("id") userId: Long
-    ): List<BasketItem> {
-        return marketOrderService.findReadyOrderListByUserId(userId)
-    }
+//    @GetMapping("/market/orders/{id}")
+//    open fun findReadyOrdersByUserId(
+//        @PathVariable("id") userId: Long
+//    ): List<BasketItem> {
+//        return marketOrderService.findReadyOrderListByUserId(userId)
+//    }
 
-    @PostMapping("/market/orders/{id}")
-    open fun saveNewOrder(
-        @PathVariable("id") userId: Long,
-        @RequestBody order: List<MarketOrderSaveItem>
-    ): MarketOrderSaveResponse {
-        return marketOrderService.saveOrder(userId, order)
-    }
+//    @PostMapping("/market/orders/{id}")
+//    open fun saveNewOrder(
+//        @PathVariable("id") userId: Long,
+//        @RequestBody order: List<MarketOrderSaveItem>
+//    ): MarketOrderSaveResponse {
+//        return marketOrderService.saveOrder(userId, order)
+//    }
 }

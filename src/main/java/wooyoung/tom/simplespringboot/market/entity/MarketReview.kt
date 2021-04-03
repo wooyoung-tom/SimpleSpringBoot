@@ -14,10 +14,6 @@ data class MarketReview(
     @JoinColumn(name = "user_id")
     val reviewMarketUser: MarketUserEntity,
 
-    @ManyToOne
-    @JoinColumn(name = "restaurant_id")
-    val reviewMarketRestaurant: MarketRestaurant,
-
     @Column(name = "content")
     val content: String,
 

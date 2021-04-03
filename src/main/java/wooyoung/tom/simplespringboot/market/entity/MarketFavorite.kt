@@ -13,8 +13,4 @@ data class MarketFavorite(
     @Column(name = "user_id")
     @JsonIgnore
     val userId: Long,
-
-    @ManyToOne
-    @JoinColumn(name = "restaurant_id")
-    val favoriteMarketRestaurant: MarketRestaurant
 )
