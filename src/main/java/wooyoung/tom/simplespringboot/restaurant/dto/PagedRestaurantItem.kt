@@ -19,5 +19,15 @@ data class PagedRestaurantItem(
 
     val latitude: String,
 
+    // 현재 위치와의 거리
+    val distance: Int,
+
+    // 현재 음식점 리뷰 개수
+    val reviewCount: Int,
+
+    // 현재 음식점 즐겨찾기 개수
+    val favoriteCount: Int,
+
+    // 현재 음식점의 메뉴 리스트
     val menuList: List<MarketMenuEntity>
 )
