@@ -29,7 +29,7 @@ open class MarketFavoriteController(
     @PostMapping("/delete")
     open fun deleteFavorite(
         @RequestBody info: FavoriteRequest
-    ): FavoriteDeleteResponse {
+    ): CommonSimpleResponse {
         return marketFavoriteService.deleteFavorite(info)
     }
 }

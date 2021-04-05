@@ -32,7 +32,7 @@ data class MarketOrderEntity(
 
     // status default = "Ready"
     @Column(name = "order_status")
-    val orderStatus: String = "Ready",
+    var orderStatus: String = "Ready",
 
     /**
      * @see orderDetailList [MarketOrderDetailEntity.orderId] mapping

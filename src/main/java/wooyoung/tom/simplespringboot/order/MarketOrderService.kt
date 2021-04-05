@@ -114,4 +114,36 @@ open class MarketOrderService(
             orders = convertedList
         )
     }
+
+    // 오더 상태 수정 (삭제)
+    open fun deleteOrder(orderId: Long): CommonSimpleResponse {
+        val findOrderResult = marketOrderRepository.findById(orderId)
+
+        if (!findOrderResult.isPresent) {
+            return CommonSimpleResponse(
+                code = "Failed",
+                message = "오더를 찾지 못했습니다."
+            )
+        }
+
+        val order = findOrderResult.get()
+
+        // 오더 상태 수정한다.
+        order.orderStatus = "Invalid"
+
+        // 오더 수정된 상태 저장
+        try {
+            marketOrderRepository.save(order)
+        } catch (npe: NullPointerException) {
+            return CommonSimpleResponse(
+                code = "Failed",
+                message = "수정할 오더를 찾지 못했습니다."
+            )
+        }
+
+        return CommonSimpleResponse(
+            code = "Success",
+            message = "오더 상태 수정에 성공하였습니다."
+        )
+    }
 }

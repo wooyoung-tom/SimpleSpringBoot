@@ -26,4 +26,12 @@ open class MarketOrderController(
     ): MarketOrderFindResponse {
         return marketOrderService.findReadyOrders(id)
     }
+
+    // 오더 삭제 (상태 Invalid 로 수정)
+    @GetMapping("/delete/{id}")
+    open fun deleteOrder(
+        @PathVariable id: Long
+    ): CommonSimpleResponse {
+        return marketOrderService.deleteOrder(id)
+    }
 }
