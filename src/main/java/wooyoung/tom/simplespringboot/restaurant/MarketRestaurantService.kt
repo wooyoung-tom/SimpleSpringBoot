@@ -43,7 +43,7 @@ open class MarketRestaurantService(
             )
 
             val reviewCount = marketReviewRepository.findAllByRestaurantId(it.id).size
-            val favoriteCount = marketFavoriteRepository.findAllByRestaurantId(it.id).size
+            val favoriteCount = marketFavoriteRepository.findAllByRestaurantIdAndStatus(it.id).size
 
             PagedRestaurantItem(
                 restaurantId = it.id,
@@ -96,7 +96,7 @@ open class MarketRestaurantService(
             val reviewCount = marketReviewRepository
                 .findAllByRestaurantId(it.restaurant.id).size
             val favoriteCount = marketFavoriteRepository
-                .findAllByRestaurantId(it.restaurant.id).size
+                .findAllByRestaurantIdAndStatus(it.restaurant.id).size
 
             PagedRestaurantItem(
                 restaurantId = it.restaurant.id,

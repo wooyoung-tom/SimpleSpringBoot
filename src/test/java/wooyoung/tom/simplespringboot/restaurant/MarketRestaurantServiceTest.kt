@@ -36,13 +36,4 @@ internal open class MarketRestaurantServiceTest {
         println(foundRestaurant.get().menuList.size)
         Assertions.assertThat(foundRestaurant.get().menuList).isNotEmpty
     }
-
-    @Test
-    fun `즐겨찾기 해 놓은 음식점 찾기`() {
-        val givenUserId: Long = 13
-
-        val favoriteList = marketFavoriteRepository.findAllByUserIdAndStatus(givenUserId)
-
-        Assertions.assertThat(favoriteList).isEmpty()
-    }
 }

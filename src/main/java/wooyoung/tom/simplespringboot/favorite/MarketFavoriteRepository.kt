@@ -8,7 +8,9 @@ import wooyoung.tom.simplespringboot.restaurant.MarketRestaurantEntity
 interface MarketFavoriteRepository : JpaRepository<MarketFavoriteEntity, Long> {
 
     // 음식점 ID 통해서 즐겨찾기 추가된 개수 가져온다.
-    fun findAllByRestaurantId(restaurantId: Long): List<MarketFavoriteEntity>
+    fun findAllByRestaurantIdAndStatus(
+        restaurantId: Long, status: Boolean = true
+    ): List<MarketFavoriteEntity>
 
     // 유저 ID 통해서 유저가 즐겨찾기 해놓은 음식점 리스트 가져오기
     fun findAllByUserIdAndStatus(
