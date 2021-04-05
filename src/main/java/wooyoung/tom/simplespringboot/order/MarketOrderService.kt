@@ -2,13 +2,13 @@ package wooyoung.tom.simplespringboot.order
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import wooyoung.tom.simplespringboot.dto.CommonSimpleResponse
 import wooyoung.tom.simplespringboot.menu.MarketMenuRepository
 import wooyoung.tom.simplespringboot.order.detail.MarketOrderDetailEntity
 import wooyoung.tom.simplespringboot.order.detail.MarketOrderDetailRepository
 import wooyoung.tom.simplespringboot.order.dto.MarketOrderFindResponse
 import wooyoung.tom.simplespringboot.order.dto.MarketOrderFindResponseItem
 import wooyoung.tom.simplespringboot.order.dto.MarketOrderSaveRequest
-import wooyoung.tom.simplespringboot.order.dto.MarketOrderSaveResponse
 import wooyoung.tom.simplespringboot.restaurant.MarketRestaurantRepository
 import java.time.LocalDate
 
@@ -22,11 +22,11 @@ open class MarketOrderService(
 
     // 오더 등록
     @Transactional
-    open fun registerOrder(order: MarketOrderSaveRequest): MarketOrderSaveResponse {
+    open fun registerOrder(order: MarketOrderSaveRequest): CommonSimpleResponse {
         val restaurant = marketRestaurantRepository.findById(order.restaurantId)
 
         if (!restaurant.isPresent) {
-            return MarketOrderSaveResponse(
+            return CommonSimpleResponse(
                 code = "Failed",
                 message = "음식점을 찾지 못했습니다."
             )
@@ -43,7 +43,7 @@ open class MarketOrderService(
         try {
             marketOrderRepository.save(newOrder)
         } catch (npe: NullPointerException) {
-            return MarketOrderSaveResponse(
+            return CommonSimpleResponse(
                 code = "Failed",
                 message = "오더 생성에 실패했습니다."
             )
@@ -55,7 +55,7 @@ open class MarketOrderService(
             val menuItem = marketMenuRepository.findById(marketOrderRequestItem.menuId)
 
             if (!menuItem.isPresent) {
-                return MarketOrderSaveResponse(
+                return CommonSimpleResponse(
                     code = "Failed",
                     message = "메뉴를 불러오는 데 실패했습니다."
                 )
@@ -72,14 +72,14 @@ open class MarketOrderService(
             try {
                 marketOrderDetailRepository.save(newOrderDetail)
             } catch (npe: NullPointerException) {
-                return MarketOrderSaveResponse(
+                return CommonSimpleResponse(
                     code = "Failed",
                     message = "오더 상세정보 생성에 실패했습니다."
                 )
             }
         }
 
-        return MarketOrderSaveResponse(
+        return CommonSimpleResponse(
             code = "Success",
             message = "오더 생성에 성공했습니다."
         )

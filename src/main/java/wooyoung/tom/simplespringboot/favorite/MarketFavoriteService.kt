@@ -2,10 +2,9 @@ package wooyoung.tom.simplespringboot.favorite
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import wooyoung.tom.simplespringboot.dto.CommonSimpleResponse
 import wooyoung.tom.simplespringboot.favorite.dto.CheckFavoriteResponse
-import wooyoung.tom.simplespringboot.favorite.dto.FavoriteDeleteResponse
 import wooyoung.tom.simplespringboot.favorite.dto.FavoriteRequest
-import wooyoung.tom.simplespringboot.favorite.dto.FavoriteRegisterResponse
 import wooyoung.tom.simplespringboot.restaurant.MarketRestaurantRepository
 
 @Service
@@ -47,13 +46,13 @@ open class MarketFavoriteService(
 
     // 즐겨찾기 등록
     @Transactional
-    open fun registerFavoriteRestaurant(info: FavoriteRequest): FavoriteRegisterResponse {
+    open fun registerFavoriteRestaurant(info: FavoriteRequest): CommonSimpleResponse {
         // 음식점 먼저 찾는다.
         val restaurant = marketRestaurantRepository.findById(info.restaurantId)
 
         // 음식점 없으면 return
         if (!restaurant.isPresent) {
-            return FavoriteRegisterResponse(
+            return CommonSimpleResponse(
                 code = "Failed",
                 message = "음식점을 찾지 못했습니다."
             )
@@ -73,7 +72,7 @@ open class MarketFavoriteService(
             try {
                 marketFavoriteRepository.save(newFavorite)
             } catch (npe: NullPointerException) {
-                return FavoriteRegisterResponse(
+                return CommonSimpleResponse(
                     code = "Failed",
                     message = "즐겨찾기를 생성하는 데 실패했습니다."
                 )
@@ -83,7 +82,7 @@ open class MarketFavoriteService(
             favorite.status = true
         }
 
-        return FavoriteRegisterResponse(
+        return CommonSimpleResponse(
             code = "Success",
             message = "즐겨찾기 등록에 성공하였습니다."
         )
@@ -91,13 +90,13 @@ open class MarketFavoriteService(
 
     // 즐겨찾기 지우기
     @Transactional
-    open fun deleteFavorite(info: FavoriteRequest): FavoriteDeleteResponse {
+    open fun deleteFavorite(info: FavoriteRequest): CommonSimpleResponse {
         // 음식점 먼저 찾는다.
         val restaurant = marketRestaurantRepository.findById(info.restaurantId)
 
         // 음식점 없으면 return
         if (!restaurant.isPresent) {
-            return FavoriteDeleteResponse(
+            return CommonSimpleResponse(
                 code = "Failed",
                 message = "음식점을 찾지 못했습니다."
             )
@@ -107,13 +106,13 @@ open class MarketFavoriteService(
             .findMarketFavoriteEntityByUserIdAndRestaurant(info.userId, restaurant.get())
 
         if (foundResult == null) {
-            return FavoriteDeleteResponse(
+            return CommonSimpleResponse(
                 code = "Failed",
                 message = "즐겨찾기 항목을 찾는데 실패했습니다."
             )
         } else {
             if (!foundResult.status) {
-                return FavoriteDeleteResponse(
+                return CommonSimpleResponse(
                     code = "Failed",
                     message = "이미 삭제된 즐겨찾기 항목입니다."
                 )
@@ -123,14 +122,14 @@ open class MarketFavoriteService(
             try {
                 marketFavoriteRepository.save(foundResult)
             } catch (npe: NullPointerException) {
-                return FavoriteDeleteResponse(
+                return CommonSimpleResponse(
                     code = "Failed",
                     message = "즐겨찾기 상태를 변경하는데 실패했습니다."
                 )
             }
         }
 
-        return FavoriteDeleteResponse(
+        return CommonSimpleResponse(
             code = "Success",
             message = "즐겨찾기 상태를 변경하였습니다."
         )

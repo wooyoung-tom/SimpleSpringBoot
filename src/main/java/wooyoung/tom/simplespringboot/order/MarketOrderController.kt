@@ -1,9 +1,9 @@
 package wooyoung.tom.simplespringboot.order
 
 import org.springframework.web.bind.annotation.*
+import wooyoung.tom.simplespringboot.dto.CommonSimpleResponse
 import wooyoung.tom.simplespringboot.order.dto.MarketOrderFindResponse
 import wooyoung.tom.simplespringboot.order.dto.MarketOrderSaveRequest
-import wooyoung.tom.simplespringboot.order.dto.MarketOrderSaveResponse
 
 @RestController
 @RequestMapping("/orders")
@@ -15,7 +15,7 @@ open class MarketOrderController(
     @PostMapping
     open fun registerOrder(
         @RequestBody order: MarketOrderSaveRequest
-    ): MarketOrderSaveResponse {
+    ): CommonSimpleResponse {
         return marketOrderService.registerOrder(order)
     }
 

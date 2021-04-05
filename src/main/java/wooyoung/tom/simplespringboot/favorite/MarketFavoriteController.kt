@@ -1,10 +1,9 @@
 package wooyoung.tom.simplespringboot.favorite
 
 import org.springframework.web.bind.annotation.*
+import wooyoung.tom.simplespringboot.dto.CommonSimpleResponse
 import wooyoung.tom.simplespringboot.favorite.dto.CheckFavoriteResponse
-import wooyoung.tom.simplespringboot.favorite.dto.FavoriteDeleteResponse
 import wooyoung.tom.simplespringboot.favorite.dto.FavoriteRequest
-import wooyoung.tom.simplespringboot.favorite.dto.FavoriteRegisterResponse
 
 @RestController
 @RequestMapping("/favorites")
@@ -15,7 +14,7 @@ open class MarketFavoriteController(
     @PostMapping
     open fun registerFavorite(
         @RequestBody info: FavoriteRequest
-    ): FavoriteRegisterResponse {
+    ): CommonSimpleResponse {
         return marketFavoriteService.registerFavoriteRestaurant(info)
     }
 

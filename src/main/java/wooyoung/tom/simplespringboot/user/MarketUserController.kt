@@ -4,9 +4,9 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import wooyoung.tom.simplespringboot.dto.CommonSimpleResponse
 import wooyoung.tom.simplespringboot.user.dto.MarketUserSignInResponse
 import wooyoung.tom.simplespringboot.user.dto.MarketUserSigningRequest
-import wooyoung.tom.simplespringboot.user.dto.MarketUserSignUpResponse
 
 @RestController
 @RequestMapping("/users")
@@ -18,7 +18,7 @@ open class MarketUserController(
     @PostMapping("/register")
     fun signUp(
         @RequestBody user: MarketUserSigningRequest
-    ): MarketUserSignUpResponse {
+    ): CommonSimpleResponse {
         return marketUserService.signUp(user)
     }
 
