@@ -9,22 +9,33 @@ import wooyoung.tom.simplespringboot.order.dto.MarketOrderFindResponse
 import wooyoung.tom.simplespringboot.order.dto.MarketOrderFindResponseItem
 import wooyoung.tom.simplespringboot.order.dto.MarketOrderSaveRequest
 import wooyoung.tom.simplespringboot.order.dto.MarketOrderSaveResponse
+import wooyoung.tom.simplespringboot.restaurant.MarketRestaurantRepository
 import java.time.LocalDate
 
 @Service
 open class MarketOrderService(
     private val marketOrderRepository: MarketOrderRepository,
     private val marketOrderDetailRepository: MarketOrderDetailRepository,
-    private val marketMenuRepository: MarketMenuRepository
+    private val marketMenuRepository: MarketMenuRepository,
+    private val marketRestaurantRepository: MarketRestaurantRepository
 ) {
 
     // 오더 등록
     @Transactional
     open fun registerOrder(order: MarketOrderSaveRequest): MarketOrderSaveResponse {
+        val restaurant = marketRestaurantRepository.findById(order.restaurantId)
+
+        if (!restaurant.isPresent) {
+            return MarketOrderSaveResponse(
+                code = "Failed",
+                message = "음식점을 찾지 못했습니다."
+            )
+        }
+
         // 먼저 전체 오더 하나 만든다.
         val newOrder = MarketOrderEntity(
             userId = order.userId,
-            restaurantId = order.restaurantId,
+            restaurant = restaurant.get(),
             orderDate = LocalDate.now()
         )
 
@@ -75,9 +86,9 @@ open class MarketOrderService(
     }
 
     // 오더 조회
-    open fun findOrder(userId: Long): MarketOrderFindResponse {
-        // 유저 아이디 통해서 오더 조회
-        val orderList = marketOrderRepository.findAllByUserId(userId)
+    open fun findReadyOrders(userId: Long): MarketOrderFindResponse {
+        // 유저 아이디 통해서 준비중인 오더 조회
+        val orderList = marketOrderRepository.findAllByUserIdAndOrderStatus(userId)
 
         if (orderList.isEmpty()) {
             return MarketOrderFindResponse(
@@ -89,6 +100,7 @@ open class MarketOrderService(
         val convertedList = orderList.map { marketOrderEntity ->
             MarketOrderFindResponseItem(
                 orderId = marketOrderEntity.id,
+                restaurantName = marketOrderEntity.restaurant.name,
                 totalPrice = marketOrderEntity.orderDetailList.sumOf {
                     (it.menu.price * it.menuCount)
                 },

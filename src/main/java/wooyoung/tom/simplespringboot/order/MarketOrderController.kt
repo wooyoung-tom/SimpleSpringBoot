@@ -21,9 +21,9 @@ open class MarketOrderController(
 
     // 오더 조회
     @GetMapping("/{id}")
-    open fun findOrders(
+    open fun findReadyOrders(
         @PathVariable id: Long
     ): MarketOrderFindResponse {
-        return marketOrderService.findOrder(id)
+        return marketOrderService.findReadyOrders(id)
     }
 }

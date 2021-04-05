@@ -6,6 +6,8 @@ data class MarketOrderFindResponseItem(
 
     val orderId: Long,
 
+    val restaurantName: String,
+
     val totalPrice: Int,
 
     val orderDetailList: List<MarketOrderDetailEntity>

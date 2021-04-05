@@ -2,6 +2,7 @@ package wooyoung.tom.simplespringboot.order
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import wooyoung.tom.simplespringboot.order.detail.MarketOrderDetailEntity
+import wooyoung.tom.simplespringboot.restaurant.MarketRestaurantEntity
 import java.time.LocalDate
 import javax.persistence.*
 
@@ -13,13 +14,18 @@ data class MarketOrderEntity(
     val id: Long = 0,
 
     /**
-     * TODO user_id, restaurant_id 연관관계 설정
+     * TODO user_id 연관관계 설정
      */
     @Column(name = "user_id")
     val userId: Long,
 
-    @Column(name = "restaurant_id")
-    val restaurantId: Long,
+    /**
+     * @see restaurant [MarketRestaurantEntity] mapping
+     */
+    @JsonIgnore
+    @OneToOne
+    @JoinColumn(name = "restaurant_id")
+    val restaurant: MarketRestaurantEntity,
 
     @Column(name = "order_date")
     val orderDate: LocalDate,
