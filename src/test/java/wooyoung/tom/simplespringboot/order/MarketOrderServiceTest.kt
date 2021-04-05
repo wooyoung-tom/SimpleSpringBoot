@@ -2,13 +2,11 @@ package wooyoung.tom.simplespringboot.order
 
 import org.assertj.core.api.Assertions
 import org.junit.Test
-import org.junit.jupiter.api.Assertions.*
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.transaction.annotation.Transactional
-import wooyoung.tom.simplespringboot.menu.MarketMenuEntity
 import wooyoung.tom.simplespringboot.menu.MarketMenuRepository
 import wooyoung.tom.simplespringboot.order.detail.MarketOrderDetailEntity
 import wooyoung.tom.simplespringboot.order.detail.MarketOrderDetailRepository
@@ -56,13 +54,13 @@ internal open class MarketOrderServiceTest {
             val menu = it.get()
             val givenOrderDetail = MarketOrderDetailEntity(
                 orderId = saveResult.id,
-                menuId = menu.id,
+                menu = menu,
                 menuCount = 3
             )
 
             val detailSaveResult = marketOrderDetailRepository.save(givenOrderDetail)
 
-            Assertions.assertThat(detailSaveResult.Id).isEqualTo(givenOrderDetail.Id)
+            Assertions.assertThat(detailSaveResult.id).isEqualTo(givenOrderDetail.id)
         }
     }
 
@@ -72,7 +70,7 @@ internal open class MarketOrderServiceTest {
 
         val orders = marketOrderRepository.findAllByUserId(givenUserId)
 
-        // 아직 오더 등록된 것이 없다.
-        Assertions.assertThat(orders).isEmpty()
+        // 오더 조회 가능
+        Assertions.assertThat(orders).isNotEmpty
     }
 }
