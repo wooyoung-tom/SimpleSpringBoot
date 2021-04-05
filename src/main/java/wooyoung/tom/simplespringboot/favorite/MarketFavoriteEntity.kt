@@ -1,5 +1,6 @@
 package wooyoung.tom.simplespringboot.favorite
 
+import wooyoung.tom.simplespringboot.restaurant.MarketRestaurantEntity
 import javax.persistence.*
 
 @Entity
@@ -10,11 +11,18 @@ data class MarketFavoriteEntity(
     val id: Long = 0,
 
     /**
-     * TODO user_id, restaurant_id 연관관계 설정
+     * TODO user_id 연관관계 설정
      */
     @Column(name = "user_id")
     val userId: Long,
 
-    @Column(name = "restaurant_id")
-    val restaurantId: Long
+    /**
+     * @see restaurant [MarketRestaurantEntity] one-to-one mapping
+     */
+    @OneToOne
+    @JoinColumn(name = "restaurant_id")
+    val restaurant: MarketRestaurantEntity,
+
+    @Column(name = "status")
+    var status: Boolean = true
 )

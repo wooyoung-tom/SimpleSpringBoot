@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional
 import wooyoung.tom.simplespringboot.menu.MarketMenuRepository
 import wooyoung.tom.simplespringboot.order.detail.MarketOrderDetailEntity
 import wooyoung.tom.simplespringboot.order.detail.MarketOrderDetailRepository
+import wooyoung.tom.simplespringboot.restaurant.MarketRestaurantRepository
 import java.time.LocalDate
 
 @RunWith(SpringRunner::class)
@@ -26,15 +27,22 @@ internal open class MarketOrderServiceTest {
     @Autowired
     private lateinit var marketOrderDetailRepository: MarketOrderDetailRepository
 
+    @Autowired
+    private lateinit var marketRestaurantRepository: MarketRestaurantRepository
+
     @Test
     fun `오더 등록`() {
         val givenUserId: Long = 13
         val givenRestaurantId: Long = 5
 
+        val givenRestaurant = marketRestaurantRepository.findById(givenRestaurantId)
+
+        Assertions.assertThat(givenRestaurant.isPresent).isTrue
+
         // 먼저 전체 오더 아이템 하나 생성
         val newOrder = MarketOrderEntity(
             userId = givenUserId,
-            restaurantId = givenRestaurantId,
+            restaurant = givenRestaurant.get(),
             orderDate = LocalDate.now(),
         )
 
@@ -68,7 +76,7 @@ internal open class MarketOrderServiceTest {
     fun `오더 조회`() {
         val givenUserId: Long = 13
 
-        val orders = marketOrderRepository.findAllByUserId(givenUserId)
+        val orders = marketOrderRepository.findAllByUserIdAndOrderStatus(givenUserId)
 
         // 오더 조회 가능
         Assertions.assertThat(orders).isNotEmpty

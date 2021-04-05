@@ -66,4 +66,57 @@ open class MarketRestaurantService(
             body = mappedContents
         )
     }
+
+    // 즐겨찾기 해놓은 음식점 찾기
+    open fun findFavoriteRestaurants(
+        userId: Long, category: String, lat: String, lng: String, pageable: Pageable
+    ): PagedRestaurantResponse {
+        val favoriteRestaurants = marketFavoriteRepository
+            .findAllByUserIdAndStatus(userId, pageable = pageable)
+
+        val metaData = PagedMetaData(
+            end = favoriteRestaurants.isLast,
+            totalResults = favoriteRestaurants.totalElements,
+            totalPages = favoriteRestaurants.totalPages,
+            page = favoriteRestaurants.number,
+            size = favoriteRestaurants.size
+        )
+
+        val convertedList = favoriteRestaurants.content.filter {
+            // 카테고리 동일한 음식점 파싱
+            it.restaurant.category == category
+        }.map {
+            val distance = getDistance(
+                lat1 = lat.toDouble(),
+                lat2 = it.restaurant.latitude.toDouble(),
+                lng1 = lng.toDouble(),
+                lng2 = it.restaurant.longitude.toDouble()
+            )
+
+            val reviewCount = marketReviewRepository
+                .findAllByRestaurantId(it.restaurant.id).size
+            val favoriteCount = marketFavoriteRepository
+                .findAllByRestaurantId(it.restaurant.id).size
+
+            PagedRestaurantItem(
+                restaurantId = it.restaurant.id,
+                restaurantName = it.restaurant.name,
+                category = it.restaurant.category,
+                roadAddress = it.restaurant.roadAddress,
+                jibunAddress = it.restaurant.jibunAddress,
+                phoneNumber = it.restaurant.phoneNumber,
+                longitude = it.restaurant.longitude,
+                latitude = it.restaurant.latitude,
+                distance = distance,
+                reviewCount = reviewCount,
+                favoriteCount = favoriteCount,
+                menuList = it.restaurant.menuList
+            )
+        }
+
+        return PagedRestaurantResponse(
+            meta = metaData,
+            body = convertedList
+        )
+    }
 }
