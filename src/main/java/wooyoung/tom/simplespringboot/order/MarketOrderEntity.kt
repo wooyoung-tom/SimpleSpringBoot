@@ -1,5 +1,7 @@
 package wooyoung.tom.simplespringboot.order
 
+import com.fasterxml.jackson.annotation.JsonIgnore
+import wooyoung.tom.simplespringboot.order.detail.MarketOrderDetailEntity
 import java.time.LocalDate
 import javax.persistence.*
 
@@ -24,5 +26,12 @@ data class MarketOrderEntity(
 
     // status default = "Ready"
     @Column(name = "order_status")
-    val orderStatus: String = "Ready"
+    val orderStatus: String = "Ready",
+
+    /**
+     * @see orderDetailList [MarketOrderDetailEntity.orderId] mapping
+     */
+    @JsonIgnore
+    @OneToMany(mappedBy = "orderId", fetch = FetchType.LAZY)
+    val orderDetailList: List<MarketOrderDetailEntity> = ArrayList()
 )

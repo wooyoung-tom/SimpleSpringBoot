@@ -43,9 +43,9 @@ data class MarketRestaurantEntity(
      */
 
     /**
-     * @see menuList MarketMenuEntity 의 restaurantInMenu 로 mapping
+     * @see menuList [MarketMenuEntity.restaurantId] mapping
      */
     @JsonIgnore
-    @OneToMany(mappedBy = "restaurantInMenu", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "restaurantId", fetch = FetchType.LAZY)
     val menuList: List<MarketMenuEntity> = ArrayList()
 )

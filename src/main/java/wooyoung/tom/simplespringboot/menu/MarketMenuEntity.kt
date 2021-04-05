@@ -1,7 +1,5 @@
 package wooyoung.tom.simplespringboot.menu
 
-import com.fasterxml.jackson.annotation.JsonIgnore
-import wooyoung.tom.simplespringboot.restaurant.MarketRestaurantEntity
 import javax.persistence.*
 
 @Entity
@@ -11,17 +9,15 @@ data class MarketMenuEntity(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
+    /**
+     * @see restaurantId restaurant_id (FK)
+     */
+    @Column(name = "restaurant_id")
+    val restaurantId: Long,
+
     @Column(name = "name")
     val name: String,
 
     @Column(name = "price")
     val price: Int,
-
-    /**
-     * @see restaurantInMenu restaurant_id (FK)로 restaurant 정보 가져온다.
-     */
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "restaurant_id")
-    val restaurantInMenu: MarketRestaurantEntity
 )
