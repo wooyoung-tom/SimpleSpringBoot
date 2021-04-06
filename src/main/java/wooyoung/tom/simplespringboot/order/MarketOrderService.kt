@@ -103,7 +103,15 @@ open class MarketOrderService(
 
         return MarketOrderSaveResponse(
             code = "Success",
-            message = "오더 생성에 성공했습니다."
+            message = "오더 생성에 성공했습니다.",
+            order = MarketOrderFindResponseItem(
+                orderId = newOrder.id,
+                restaurant = newOrder.restaurant,
+                totalPrice = newOrder.orderDetailList.sumOf {
+                    (it.menu.price * it.menuCount)
+                },
+                orderDetailList = newOrder.orderDetailList
+            )
         )
     }
 

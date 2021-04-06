@@ -23,7 +23,7 @@ data class MarketOrderDetailEntity(
     val menu: MarketMenuEntity,
 
     @Column(name = "menu_cnt")
-    var menuCount: Int,
+    val menuCount: Int,
 
     @Column(name = "menu_status")
     var menuStatus: Boolean = true

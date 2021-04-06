@@ -2,6 +2,8 @@ package wooyoung.tom.simplespringboot.order
 
 import org.springframework.web.bind.annotation.*
 import wooyoung.tom.simplespringboot.dto.CommonSimpleResponse
+import wooyoung.tom.simplespringboot.order.detail.MarketOrderDetailService
+import wooyoung.tom.simplespringboot.order.dto.MarketOrderDetailEditRequest
 import wooyoung.tom.simplespringboot.order.dto.MarketOrderFindResponse
 import wooyoung.tom.simplespringboot.order.dto.MarketOrderSaveRequest
 import wooyoung.tom.simplespringboot.order.dto.MarketOrderSaveResponse
@@ -9,7 +11,8 @@ import wooyoung.tom.simplespringboot.order.dto.MarketOrderSaveResponse
 @RestController
 @RequestMapping("/orders")
 open class MarketOrderController(
-    private val marketOrderService: MarketOrderService
+    private val marketOrderService: MarketOrderService,
+    private val marketOrderDetailService: MarketOrderDetailService
 ) {
 
     // 오더 등록
@@ -34,5 +37,13 @@ open class MarketOrderController(
         @PathVariable id: Long
     ): CommonSimpleResponse {
         return marketOrderService.deleteOrder(id)
+    }
+
+    // 오더 수정
+    @PostMapping("/edit")
+    open fun editOrder(
+        @RequestBody request: MarketOrderDetailEditRequest
+    ): CommonSimpleResponse {
+        return marketOrderDetailService.editOrderDetail(request)
     }
 }

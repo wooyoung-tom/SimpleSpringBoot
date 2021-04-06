@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.transaction.annotation.Transactional
+import wooyoung.tom.simplespringboot.menu.MarketMenuEntity
+import wooyoung.tom.simplespringboot.menu.MarketMenuRepository
+import wooyoung.tom.simplespringboot.order.MarketOrderRepository
 import wooyoung.tom.simplespringboot.order.dto.MarketOrderDetailEditRequest
 import wooyoung.tom.simplespringboot.order.dto.MarketOrderSaveRequest
 import wooyoung.tom.simplespringboot.order.dto.MarketOrderSaveRequestItem
@@ -18,7 +21,13 @@ import wooyoung.tom.simplespringboot.order.dto.MarketOrderSaveRequestItem
 internal open class MarketOrderDetailServiceTest {
 
     @Autowired
+    private lateinit var marketOrderRepository: MarketOrderRepository
+
+    @Autowired
     private lateinit var marketOrderDetailRepository: MarketOrderDetailRepository
+
+    @Autowired
+    private lateinit var marketMenuRepository: MarketMenuRepository
 
     @Test
     fun `오더 id 통해 디테일 아이템 가져오기`() {
@@ -32,21 +41,35 @@ internal open class MarketOrderDetailServiceTest {
     }
 
     @Test
-    fun `오더 디테일 아이템 수정`() {
+    fun `오더 디테일 아이템 상태 수정`() {
         val givenOrderId: Long = 27
         val givenMenuList = listOf(
             MarketOrderSaveRequestItem(menuId = 15034, menuCount = 3),
             MarketOrderSaveRequestItem(menuId = 15035, menuCount = 1)
         )
 
-        givenMenuList.forEach {
-            // 오더 아이디와 메뉴 아이디로 디테일 아이템 가져온다.
-            val originalOrderDetail = marketOrderDetailRepository
-                .findAllByMarketOrderIdAndMenuId(givenOrderId, it.menuId)
+        // 오더 item
+        val order = marketOrderRepository.findById(givenOrderId)
 
-            Assertions.assertThat(originalOrderDetail).isNotNull
+        // 오더 id, status 가지고 detail list 가져온다.
+        val orderDetails = marketOrderDetailRepository
+            .findAllByMarketOrderIdAndMenuStatus(givenOrderId)
 
+        orderDetails.forEach { original ->
+            original.menuStatus = false
 
+            // 상태 변경 후 update
+            marketOrderDetailRepository.save(original)
+        }
+
+        givenMenuList.forEach { request ->
+            val menu = marketMenuRepository.findById(request.menuId)
+            val newOrderDetail = MarketOrderDetailEntity(
+                marketOrder = order.get(),
+                menu = menu.get(),
+                menuCount = request.menuCount
+            )
+            marketOrderDetailRepository.save(newOrderDetail)
         }
     }
 }

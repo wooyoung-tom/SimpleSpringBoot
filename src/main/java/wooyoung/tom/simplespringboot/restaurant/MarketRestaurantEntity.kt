@@ -44,7 +44,6 @@ data class MarketRestaurantEntity(
      * @see favoriteList [MarketFavoriteEntity.restaurant] mapping
      * @see reviewList [MarketReviewEntity.restaurantId] mapping
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "restaurantId", fetch = FetchType.LAZY)
     val menuList: List<MarketMenuEntity> = ArrayList(),
 
