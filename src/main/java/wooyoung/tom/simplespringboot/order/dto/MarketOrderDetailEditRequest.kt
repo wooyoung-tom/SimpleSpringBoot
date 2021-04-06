@@ -1,7 +1,6 @@
 package wooyoung.tom.simplespringboot.order.dto
 
-data class MarketOrderSaveRequest(
-    val userId: Long,
-    val restaurantId: Long,
+data class MarketOrderDetailEditRequest(
+    val orderId: Long,
     val menuList: List<MarketOrderSaveRequestItem>
 )

@@ -15,19 +15,8 @@ open class MarketFavoriteService(
 
     // 내가 즐겨찾기 해놓은 식당인지 판별
     open fun checkMyFavoriteRestaurant(userId: Long, restaurantId: Long): CheckFavoriteResponse {
-        // 음식점 먼저 찾는다.
-        val restaurant = marketRestaurantRepository.findById(restaurantId)
-
-        // 음식점 없으면 return
-        if (!restaurant.isPresent) {
-            return CheckFavoriteResponse(
-                code = "Failed",
-                message = "음식점을 찾지 못했습니다."
-            )
-        }
-
         val result = marketFavoriteRepository
-            .findMarketFavoriteEntityByUserIdAndRestaurant(userId, restaurant.get())
+            .findMarketFavoriteEntityByUserIdAndRestaurantId(userId, restaurantId)
 
         return if (result == null) {
             CheckFavoriteResponse(
@@ -47,20 +36,19 @@ open class MarketFavoriteService(
     // 즐겨찾기 등록
     @Transactional
     open fun registerFavoriteRestaurant(info: FavoriteRequest): CommonSimpleResponse {
-        // 음식점 먼저 찾는다.
+        // 음식점 찾아오기
         val restaurant = marketRestaurantRepository.findById(info.restaurantId)
 
-        // 음식점 없으면 return
         if (!restaurant.isPresent) {
             return CommonSimpleResponse(
                 code = "Failed",
-                message = "음식점을 찾지 못했습니다."
+                message = "음식점을 찾는 데 실패했습니다."
             )
         }
 
         // 즐겨찾기 리스트에 있는지 먼저 확인한다.
         val favorite = marketFavoriteRepository
-            .findMarketFavoriteEntityByUserIdAndRestaurant(info.userId, restaurant.get())
+            .findMarketFavoriteEntityByUserIdAndRestaurantId(info.userId, info.restaurantId)
 
         // 없으면 만든다.
         if (favorite == null) {
@@ -91,19 +79,8 @@ open class MarketFavoriteService(
     // 즐겨찾기 지우기
     @Transactional
     open fun deleteFavorite(info: FavoriteRequest): CommonSimpleResponse {
-        // 음식점 먼저 찾는다.
-        val restaurant = marketRestaurantRepository.findById(info.restaurantId)
-
-        // 음식점 없으면 return
-        if (!restaurant.isPresent) {
-            return CommonSimpleResponse(
-                code = "Failed",
-                message = "음식점을 찾지 못했습니다."
-            )
-        }
-
         val foundResult = marketFavoriteRepository
-            .findMarketFavoriteEntityByUserIdAndRestaurant(info.userId, restaurant.get())
+            .findMarketFavoriteEntityByUserIdAndRestaurantId(info.userId, info.restaurantId)
 
         if (foundResult == null) {
             return CommonSimpleResponse(

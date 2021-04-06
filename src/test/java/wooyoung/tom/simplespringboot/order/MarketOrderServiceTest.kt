@@ -61,7 +61,7 @@ internal open class MarketOrderServiceTest {
         givenMenuList.forEach {
             val menu = it.get()
             val givenOrderDetail = MarketOrderDetailEntity(
-                orderId = saveResult.id,
+                marketOrder = saveResult,
                 menu = menu,
                 menuCount = 3
             )

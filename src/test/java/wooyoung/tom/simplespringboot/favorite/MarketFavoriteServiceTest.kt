@@ -2,7 +2,6 @@ package wooyoung.tom.simplespringboot.favorite
 
 import org.assertj.core.api.Assertions
 import org.junit.Test
-import org.junit.jupiter.api.Assertions.*
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -26,14 +25,9 @@ internal open class MarketFavoriteServiceTest {
         val givenUserId: Long = 13
         val givenRestaurantId: Long = 5
 
-        // 음식점 먼저 찾는다.
-        val restaurant = marketRestaurantRepository.findById(givenRestaurantId)
-
-        Assertions.assertThat(restaurant.isPresent).isTrue
-
         // 즐겨찾기 repository 에서 찾는다.
         val result = marketFavoriteRepository
-            .findMarketFavoriteEntityByUserIdAndRestaurant(givenUserId, restaurant.get())
+            .findMarketFavoriteEntityByUserIdAndRestaurantId(givenUserId, givenRestaurantId)
 
         Assertions.assertThat(result).isNotNull
     }
@@ -49,7 +43,7 @@ internal open class MarketFavoriteServiceTest {
         Assertions.assertThat(restaurant.isPresent).isTrue
 
         val favorite = marketFavoriteRepository
-            .findMarketFavoriteEntityByUserIdAndRestaurant(givenUserId, restaurant.get())
+            .findMarketFavoriteEntityByUserIdAndRestaurantId(givenUserId, givenRestaurantId)
 
         Assertions.assertThat(favorite).isNull()
 
@@ -74,7 +68,7 @@ internal open class MarketFavoriteServiceTest {
         Assertions.assertThat(restaurant.isPresent).isTrue
 
         val favorite = marketFavoriteRepository
-            .findMarketFavoriteEntityByUserIdAndRestaurant(givenUserId, restaurant.get())
+            .findMarketFavoriteEntityByUserIdAndRestaurantId(givenUserId, givenRestaurantId)
 
         Assertions.assertThat(favorite).isNotNull
         Assertions.assertThat(favorite?.status).isNotNull.isTrue

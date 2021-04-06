@@ -16,10 +16,7 @@ data class MarketFavoriteEntity(
     @Column(name = "user_id")
     val userId: Long,
 
-    /**
-     * @see restaurant [MarketRestaurantEntity] one-to-one mapping
-     */
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "restaurant_id")
     val restaurant: MarketRestaurantEntity,
 

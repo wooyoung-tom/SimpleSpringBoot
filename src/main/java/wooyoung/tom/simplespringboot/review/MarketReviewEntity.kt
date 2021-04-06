@@ -10,7 +10,7 @@ data class MarketReviewEntity(
     val id: Long = 0,
 
     /**
-     * TODO user_id, restaurant_id 연관관계 설정
+     * TODO user_id 연관관계 설정
      */
     @Column(name = "user_id")
     val userId: Long,

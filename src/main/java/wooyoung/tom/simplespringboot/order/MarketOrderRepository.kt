@@ -8,4 +8,9 @@ interface MarketOrderRepository : JpaRepository<MarketOrderEntity, Long> {
     fun findAllByUserIdAndOrderStatus(
         userId: Long, orderStatus: String = "Ready"
     ): List<MarketOrderEntity>
+
+    // 유저 id 와 음식점 id 로 준비중인 오더 조회
+    fun findMarketOrderEntityByUserIdAndRestaurantIdAndOrderStatus(
+        userId: Long, restaurantId: Long, orderStatus: String = "Ready"
+    ): MarketOrderEntity?
 }

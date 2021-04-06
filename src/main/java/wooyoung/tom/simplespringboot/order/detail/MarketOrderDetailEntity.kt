@@ -1,7 +1,7 @@
 package wooyoung.tom.simplespringboot.order.detail
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import wooyoung.tom.simplespringboot.menu.MarketMenuEntity
+import wooyoung.tom.simplespringboot.order.MarketOrderEntity
 import javax.persistence.*
 
 @Entity
@@ -11,9 +11,9 @@ data class MarketOrderDetailEntity(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    @JsonIgnore
-    @Column(name = "order_id")
-    val orderId: Long,
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    val marketOrder: MarketOrderEntity,
 
     /**
      * @see menu [MarketMenuEntity] mapping
@@ -23,5 +23,8 @@ data class MarketOrderDetailEntity(
     val menu: MarketMenuEntity,
 
     @Column(name = "menu_cnt")
-    val menuCount: Int
+    var menuCount: Int,
+
+    @Column(name = "menu_status")
+    var menuStatus: Boolean = true
 )

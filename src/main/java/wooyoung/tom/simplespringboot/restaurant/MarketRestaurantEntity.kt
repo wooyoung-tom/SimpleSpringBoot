@@ -1,7 +1,9 @@
 package wooyoung.tom.simplespringboot.restaurant
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import wooyoung.tom.simplespringboot.favorite.MarketFavoriteEntity
 import wooyoung.tom.simplespringboot.menu.MarketMenuEntity
+import wooyoung.tom.simplespringboot.review.MarketReviewEntity
 import javax.persistence.*
 
 /**
@@ -38,14 +40,19 @@ data class MarketRestaurantEntity(
     val category: String,
 
     /**
-     * TODO review, favorite, order 연관관계 설정
-     *  restaurant_id 로 참조가능?
-     */
-
-    /**
      * @see menuList [MarketMenuEntity.restaurantId] mapping
+     * @see favoriteList [MarketFavoriteEntity.restaurant] mapping
+     * @see reviewList [MarketReviewEntity.restaurantId] mapping
      */
     @JsonIgnore
     @OneToMany(mappedBy = "restaurantId", fetch = FetchType.LAZY)
-    val menuList: List<MarketMenuEntity> = ArrayList()
+    val menuList: List<MarketMenuEntity> = ArrayList(),
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY)
+    val favoriteList: List<MarketFavoriteEntity> = ArrayList(),
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "restaurantId", fetch = FetchType.LAZY)
+    val reviewList: List<MarketReviewEntity> = ArrayList()
 )

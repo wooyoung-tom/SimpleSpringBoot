@@ -35,9 +35,9 @@ data class MarketOrderEntity(
     var orderStatus: String = "Ready",
 
     /**
-     * @see orderDetailList [MarketOrderDetailEntity.orderId] mapping
+     * @see orderDetailList [MarketOrderDetailEntity.marketOrder] mapping
      */
     @JsonIgnore
-    @OneToMany(mappedBy = "orderId", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "marketOrder", fetch = FetchType.LAZY)
     val orderDetailList: List<MarketOrderDetailEntity> = ArrayList()
 )

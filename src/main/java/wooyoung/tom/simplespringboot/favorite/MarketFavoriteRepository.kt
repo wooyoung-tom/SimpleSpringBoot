@@ -3,7 +3,6 @@ package wooyoung.tom.simplespringboot.favorite
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
-import wooyoung.tom.simplespringboot.restaurant.MarketRestaurantEntity
 
 interface MarketFavoriteRepository : JpaRepository<MarketFavoriteEntity, Long> {
 
@@ -18,7 +17,7 @@ interface MarketFavoriteRepository : JpaRepository<MarketFavoriteEntity, Long> {
     ): Page<MarketFavoriteEntity>
 
     // 유저 ID 와 레스토랑 ID 가지고 와서 즐겨찾기 찾는다.
-    fun findMarketFavoriteEntityByUserIdAndRestaurant(
-        userId: Long, restaurant: MarketRestaurantEntity
+    fun findMarketFavoriteEntityByUserIdAndRestaurantId(
+        userId: Long, restaurantId: Long
     ): MarketFavoriteEntity?
 }

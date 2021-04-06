@@ -9,6 +9,7 @@ import wooyoung.tom.simplespringboot.order.detail.MarketOrderDetailRepository
 import wooyoung.tom.simplespringboot.order.dto.MarketOrderFindResponse
 import wooyoung.tom.simplespringboot.order.dto.MarketOrderFindResponseItem
 import wooyoung.tom.simplespringboot.order.dto.MarketOrderSaveRequest
+import wooyoung.tom.simplespringboot.order.dto.MarketOrderSaveResponse
 import wooyoung.tom.simplespringboot.restaurant.MarketRestaurantRepository
 import java.time.LocalDate
 
@@ -22,13 +23,34 @@ open class MarketOrderService(
 
     // 오더 등록
     @Transactional
-    open fun registerOrder(order: MarketOrderSaveRequest): CommonSimpleResponse {
+    open fun registerOrder(order: MarketOrderSaveRequest): MarketOrderSaveResponse {
         val restaurant = marketRestaurantRepository.findById(order.restaurantId)
 
         if (!restaurant.isPresent) {
-            return CommonSimpleResponse(
+            return MarketOrderSaveResponse(
                 code = "Failed",
                 message = "음식점을 찾지 못했습니다."
+            )
+        }
+
+        // 전체 오더 만들기 전에 존재하는 지 확인
+        val foundOrder = marketOrderRepository
+            .findMarketOrderEntityByUserIdAndRestaurantIdAndOrderStatus(
+                order.userId, order.restaurantId
+            )
+
+        if (foundOrder != null) {
+            return MarketOrderSaveResponse(
+                code = "Duplicated",
+                message = "이미 대기중인 주문이 있습니다.",
+                order = MarketOrderFindResponseItem(
+                    orderId = foundOrder.id,
+                    restaurant = foundOrder.restaurant,
+                    totalPrice = foundOrder.orderDetailList.sumOf {
+                        (it.menu.price * it.menuCount)
+                    },
+                    orderDetailList = foundOrder.orderDetailList
+                )
             )
         }
 
@@ -43,7 +65,7 @@ open class MarketOrderService(
         try {
             marketOrderRepository.save(newOrder)
         } catch (npe: NullPointerException) {
-            return CommonSimpleResponse(
+            return MarketOrderSaveResponse(
                 code = "Failed",
                 message = "오더 생성에 실패했습니다."
             )
@@ -55,7 +77,7 @@ open class MarketOrderService(
             val menuItem = marketMenuRepository.findById(marketOrderRequestItem.menuId)
 
             if (!menuItem.isPresent) {
-                return CommonSimpleResponse(
+                return MarketOrderSaveResponse(
                     code = "Failed",
                     message = "메뉴를 불러오는 데 실패했습니다."
                 )
@@ -63,7 +85,7 @@ open class MarketOrderService(
 
             // order detail item 하나 생성
             val newOrderDetail = MarketOrderDetailEntity(
-                orderId = newOrder.id,
+                marketOrder = newOrder,
                 menu = menuItem.get(),
                 menuCount = marketOrderRequestItem.menuCount
             )
@@ -72,14 +94,14 @@ open class MarketOrderService(
             try {
                 marketOrderDetailRepository.save(newOrderDetail)
             } catch (npe: NullPointerException) {
-                return CommonSimpleResponse(
+                return MarketOrderSaveResponse(
                     code = "Failed",
                     message = "오더 상세정보 생성에 실패했습니다."
                 )
             }
         }
 
-        return CommonSimpleResponse(
+        return MarketOrderSaveResponse(
             code = "Success",
             message = "오더 생성에 성공했습니다."
         )
@@ -98,13 +120,13 @@ open class MarketOrderService(
         }
 
         val convertedList = orderList.map { marketOrderEntity ->
+            // 오더 디테일 status 가 유효한것만
             MarketOrderFindResponseItem(
                 orderId = marketOrderEntity.id,
-                restaurantName = marketOrderEntity.restaurant.name,
-                totalPrice = marketOrderEntity.orderDetailList.sumOf {
-                    (it.menu.price * it.menuCount)
-                },
-                orderDetailList = marketOrderEntity.orderDetailList
+                restaurant = marketOrderEntity.restaurant,
+                totalPrice = marketOrderEntity.orderDetailList.filter { it.menuStatus }
+                    .sumOf { (it.menu.price * it.menuCount) },
+                orderDetailList = marketOrderEntity.orderDetailList.filter { it.menuStatus }
             )
         }
 
