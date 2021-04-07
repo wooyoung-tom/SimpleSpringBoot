@@ -13,4 +13,6 @@ interface MarketOrderRepository : JpaRepository<MarketOrderEntity, Long> {
     fun findMarketOrderEntityByUserIdAndRestaurantIdAndOrderStatus(
         userId: Long, restaurantId: Long, orderStatus: String = "Ready"
     ): MarketOrderEntity?
+
+    fun findAllByIdIn(idList: List<Long>): List<MarketOrderEntity>
 }

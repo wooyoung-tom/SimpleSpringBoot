@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.transaction.annotation.Transactional
-import wooyoung.tom.simplespringboot.user.dto.MarketUserSigningRequest
+import wooyoung.tom.simplespringboot.user.dto.MarketUserSignUpRequest
 
 @RunWith(SpringRunner::class)
 @SpringBootTest
@@ -21,12 +21,12 @@ internal open class MarketUserServiceTest {
     fun `회원가입`() {
         // given
         val newUser = MarketUserEntity(
-            userName = "test1",
+            userId = "test1",
             password = "test"
         )
 
         // 이름을 통해 존재하는 사용자인지 확인
-        val foundUser = marketUserRepository.findMarketUserByUserName(newUser.userName)
+        val foundUser = marketUserRepository.findMarketUserByUserName(newUser.userId)
 
         Assertions.assertThat(foundUser).isEqualTo(null)
 
@@ -39,13 +39,13 @@ internal open class MarketUserServiceTest {
 
     @Test
     fun `로그인`() {
-        val givenUser = MarketUserSigningRequest(
-            name = "test",
+        val givenUser = MarketUserSignUpRequest(
+            userId = "test",
             password = "test"
         )
 
         // 이름으로 존재하는 사용자인지 확인
-        val foundUser = marketUserRepository.findMarketUserByUserName(givenUser.name)
+        val foundUser = marketUserRepository.findMarketUserByUserName(givenUser.userId)
 
         // 찾은 사용자가 null 이 아니어야 한다.
         Assertions.assertThat(foundUser).isNotNull

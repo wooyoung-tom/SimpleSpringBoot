@@ -10,12 +10,15 @@ data class MarketUserEntity(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    @Column(name = "username")
-    val userName: String,
+    @Column(name = "user_id")
+    val userId: String,
 
     @JsonIgnore
     @Column(name = "password")
     val password: String,
+
+    @Column(name = "username")
+    val username: String
 
     /**
      * TODO favorite, review, order 연관관계 설정

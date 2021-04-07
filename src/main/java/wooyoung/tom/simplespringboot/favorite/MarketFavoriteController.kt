@@ -1,7 +1,7 @@
 package wooyoung.tom.simplespringboot.favorite
 
 import org.springframework.web.bind.annotation.*
-import wooyoung.tom.simplespringboot.dto.CommonSimpleResponse
+import wooyoung.tom.simplespringboot.CommonSimpleResponse
 import wooyoung.tom.simplespringboot.favorite.dto.CheckFavoriteResponse
 import wooyoung.tom.simplespringboot.favorite.dto.FavoriteRequest
 

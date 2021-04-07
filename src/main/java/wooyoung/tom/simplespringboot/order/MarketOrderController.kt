@@ -1,12 +1,11 @@
 package wooyoung.tom.simplespringboot.order
 
 import org.springframework.web.bind.annotation.*
-import wooyoung.tom.simplespringboot.dto.CommonSimpleResponse
+import wooyoung.tom.simplespringboot.CommonSimpleResponse
 import wooyoung.tom.simplespringboot.order.detail.MarketOrderDetailService
-import wooyoung.tom.simplespringboot.order.dto.MarketOrderDetailEditRequest
-import wooyoung.tom.simplespringboot.order.dto.MarketOrderFindResponse
-import wooyoung.tom.simplespringboot.order.dto.MarketOrderSaveRequest
-import wooyoung.tom.simplespringboot.order.dto.MarketOrderSaveResponse
+import wooyoung.tom.simplespringboot.order.dto.*
+import wooyoung.tom.simplespringboot.payment.dto.MarketPaymentRequest
+import wooyoung.tom.simplespringboot.payment.dto.MarketPaymentResponse
 
 @RestController
 @RequestMapping("/orders")
@@ -45,5 +44,13 @@ open class MarketOrderController(
         @RequestBody request: MarketOrderDetailEditRequest
     ): CommonSimpleResponse {
         return marketOrderDetailService.editOrderDetail(request)
+    }
+
+    // 오더 상태 수정 (결제 완료)
+    @PostMapping("/payment/paid")
+    open fun orderPaid(
+        @RequestBody request: MarketPaymentRequest
+    ): MarketPaymentResponse {
+        return marketOrderService.orderPaid(request)
     }
 }

@@ -2,7 +2,7 @@ package wooyoung.tom.simplespringboot.order.detail
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import wooyoung.tom.simplespringboot.dto.CommonSimpleResponse
+import wooyoung.tom.simplespringboot.CommonSimpleResponse
 import wooyoung.tom.simplespringboot.menu.MarketMenuRepository
 import wooyoung.tom.simplespringboot.order.MarketOrderRepository
 import wooyoung.tom.simplespringboot.order.dto.MarketOrderDetailEditRequest

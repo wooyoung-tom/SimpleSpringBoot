@@ -2,23 +2,26 @@ package wooyoung.tom.simplespringboot.order
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import wooyoung.tom.simplespringboot.dto.CommonSimpleResponse
+import wooyoung.tom.simplespringboot.CommonSimpleResponse
 import wooyoung.tom.simplespringboot.menu.MarketMenuRepository
 import wooyoung.tom.simplespringboot.order.detail.MarketOrderDetailEntity
 import wooyoung.tom.simplespringboot.order.detail.MarketOrderDetailRepository
-import wooyoung.tom.simplespringboot.order.dto.MarketOrderFindResponse
-import wooyoung.tom.simplespringboot.order.dto.MarketOrderFindResponseItem
-import wooyoung.tom.simplespringboot.order.dto.MarketOrderSaveRequest
-import wooyoung.tom.simplespringboot.order.dto.MarketOrderSaveResponse
+import wooyoung.tom.simplespringboot.order.dto.*
+import wooyoung.tom.simplespringboot.payment.dto.MarketPaymentRequest
+import wooyoung.tom.simplespringboot.payment.dto.MarketPaymentResponse
+import wooyoung.tom.simplespringboot.payment.MarketPaymentEntity
+import wooyoung.tom.simplespringboot.payment.MarketPaymentRepository
 import wooyoung.tom.simplespringboot.restaurant.MarketRestaurantRepository
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 @Service
 open class MarketOrderService(
     private val marketOrderRepository: MarketOrderRepository,
     private val marketOrderDetailRepository: MarketOrderDetailRepository,
     private val marketMenuRepository: MarketMenuRepository,
-    private val marketRestaurantRepository: MarketRestaurantRepository
+    private val marketRestaurantRepository: MarketRestaurantRepository,
+    private val marketPaymentRepository: MarketPaymentRepository
 ) {
 
     // 오더 등록
@@ -174,6 +177,51 @@ open class MarketOrderService(
         return CommonSimpleResponse(
             code = "Success",
             message = "오더 상태 수정에 성공하였습니다."
+        )
+    }
+
+    // 오더 상태 수정 (결제 완료)
+    open fun orderPaid(request: MarketPaymentRequest): MarketPaymentResponse {
+        // 결제 테이블 아이템 하나 생성
+        val paymentItem = MarketPaymentEntity(
+            method = request.method,
+            status = "Paid",
+            datetime = LocalDateTime.now()
+        )
+
+        // payment save
+        try {
+            marketPaymentRepository.save(paymentItem)
+        } catch (e: IllegalArgumentException) {
+            return MarketPaymentResponse(
+                code = "Failed",
+                message = "결제 생성에 실패했습니다."
+            )
+        }
+
+        // 받아온 request 에 속한 오더들 리스트로 가져온다.
+        val orders = marketOrderRepository.findAllByIdIn(request.orders)
+
+        // 오더 상태 수정
+        orders.forEach {
+            it.paymentId = paymentItem.id
+            it.orderStatus = "Ordered"
+        }
+
+        // 상태 수정된 오더들 저장
+        try {
+            marketOrderRepository.saveAll(orders)
+        } catch (e: IllegalArgumentException) {
+            return MarketPaymentResponse(
+                code = "Failed",
+                message = "오더를 저장하는 데 실패했습니다."
+            )
+        }
+
+        return MarketPaymentResponse(
+            code = "Success",
+            message = "결제에 성공했습니다.",
+            payment = paymentItem
         )
     }
 }

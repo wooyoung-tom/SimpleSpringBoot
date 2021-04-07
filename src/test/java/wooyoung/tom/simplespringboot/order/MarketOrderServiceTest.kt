@@ -81,4 +81,11 @@ internal open class MarketOrderServiceTest {
         // 오더 조회 가능
         Assertions.assertThat(orders).isNotEmpty
     }
+
+    @Test
+    fun `오더 여러개 조회 (by id)`() {
+        val givenOrders = listOf(32L, 33L)
+        val orders = marketOrderRepository.findAllByIdIn(givenOrders)
+        Assertions.assertThat(orders).isNotEmpty
+    }
 }

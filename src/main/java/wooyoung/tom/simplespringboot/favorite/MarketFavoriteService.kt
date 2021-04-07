@@ -2,7 +2,7 @@ package wooyoung.tom.simplespringboot.favorite
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import wooyoung.tom.simplespringboot.dto.CommonSimpleResponse
+import wooyoung.tom.simplespringboot.CommonSimpleResponse
 import wooyoung.tom.simplespringboot.favorite.dto.CheckFavoriteResponse
 import wooyoung.tom.simplespringboot.favorite.dto.FavoriteRequest
 import wooyoung.tom.simplespringboot.restaurant.MarketRestaurantRepository

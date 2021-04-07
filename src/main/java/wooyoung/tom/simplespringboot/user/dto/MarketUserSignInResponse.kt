@@ -1,7 +1,9 @@
 package wooyoung.tom.simplespringboot.user.dto
 
+import wooyoung.tom.simplespringboot.user.MarketUserEntity
+
 data class MarketUserSignInResponse(
     val code: String,
     val message: String,
-    val user: MarketUserSigningDTO? = null
+    val user: MarketUserEntity? = null
 )

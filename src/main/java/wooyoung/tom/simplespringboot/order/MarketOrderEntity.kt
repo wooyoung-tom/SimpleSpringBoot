@@ -19,6 +19,9 @@ data class MarketOrderEntity(
     @Column(name = "user_id")
     val userId: Long,
 
+    @Column(name = "payment_id")
+    var paymentId: Long? = null,
+
     /**
      * @see restaurant [MarketRestaurantEntity] mapping
      */

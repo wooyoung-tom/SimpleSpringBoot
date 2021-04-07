@@ -2,10 +2,10 @@ package wooyoung.tom.simplespringboot.user
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import wooyoung.tom.simplespringboot.dto.CommonSimpleResponse
+import wooyoung.tom.simplespringboot.CommonSimpleResponse
+import wooyoung.tom.simplespringboot.user.dto.MarketUserSignInRequest
 import wooyoung.tom.simplespringboot.user.dto.MarketUserSignInResponse
-import wooyoung.tom.simplespringboot.user.dto.MarketUserSigningRequest
-import wooyoung.tom.simplespringboot.user.dto.MarketUserSigningDTO
+import wooyoung.tom.simplespringboot.user.dto.MarketUserSignUpRequest
 
 @Service
 open class MarketUserService(
@@ -14,15 +14,16 @@ open class MarketUserService(
 
     // 회원가입
     @Transactional
-    open fun signUp(user: MarketUserSigningRequest): CommonSimpleResponse {
+    open fun signUp(user: MarketUserSignUpRequest): CommonSimpleResponse {
         // 유저 이름 중복되는지 확인한다.
         // foundUser null, non-null 판단
-        when (marketUserRepository.findMarketUserByUserName(user.name)) {
+        when (marketUserRepository.findMarketUserByUserId(user.userId)) {
             null -> {
                 // null 이면 가입 가능 -> save 진행
                 val newUser = MarketUserEntity(
-                    userName = user.name,
-                    password = user.password
+                    userId = user.userId,
+                    password = user.password,
+                    username = user.username
                 )
 
                 try {
@@ -49,9 +50,9 @@ open class MarketUserService(
     }
 
     // 로그인
-    open fun signIn(user: MarketUserSigningRequest): MarketUserSignInResponse {
+    open fun signIn(user: MarketUserSignInRequest): MarketUserSignInResponse {
         // 받아온 정보로 유저가 있는지 확인한다.
-        return when (val result = marketUserRepository.findMarketUserByUserName(user.name)) {
+        return when (val result = marketUserRepository.findMarketUserByUserId(user.userId)) {
             null -> {
                 // null 이면 유저 정보를 찾지 못한 것
                 return MarketUserSignInResponse(
@@ -65,7 +66,7 @@ open class MarketUserService(
                     MarketUserSignInResponse(
                         code = "Success",
                         message = "로그인에 성공하였습니다.",
-                        user = MarketUserSigningDTO(result.id, result.userName)
+                        user = result
                     )
                 } else {
                     MarketUserSignInResponse(
