@@ -180,14 +180,27 @@ open class MarketOrderService(
         )
     }
 
-    // 오더 상태 수정 (결제 완료)
-    open fun orderPaid(request: MarketPaymentRequest): MarketPaymentResponse {
-        // 결제 테이블 아이템 하나 생성
-        val paymentItem = MarketPaymentEntity(
-            method = request.method,
-            status = "Paid",
-            datetime = LocalDateTime.now()
-        )
+    // 오더 상태 수정 (결제 상태)
+    open fun orderPayment(request: MarketPaymentRequest): MarketPaymentResponse {
+        // 요청 들어온 parameter 내부 method 변수 값 따라서 결제상태 결정
+        val paymentItem = when (request.method) {
+            "나중에 결제하기" -> {
+                // 나중에 결제 (status: "Later") -> 기한 일주일
+                MarketPaymentEntity(
+                    method = request.method,
+                    status = "Later",
+                    datetime = LocalDateTime.now().plusDays(7)
+                )
+            }
+            else -> {
+                // 지금 결제 (status: "Paid") -> 오늘 결제
+                MarketPaymentEntity(
+                    method = request.method,
+                    status = "Paid",
+                    datetime = LocalDateTime.now()
+                )
+            }
+        }
 
         // payment save
         try {
@@ -205,7 +218,10 @@ open class MarketOrderService(
         // 오더 상태 수정
         orders.forEach {
             it.paymentId = paymentItem.id
-            it.orderStatus = "Ordered"
+            it.orderStatus = when (paymentItem.status) {
+                "Later" -> "Later"
+                else -> "Ordered"
+            }
         }
 
         // 상태 수정된 오더들 저장
@@ -220,7 +236,7 @@ open class MarketOrderService(
 
         return MarketPaymentResponse(
             code = "Success",
-            message = "결제에 성공했습니다.",
+            message = "결제정보 저장에 성공했습니다.",
             payment = paymentItem
         )
     }

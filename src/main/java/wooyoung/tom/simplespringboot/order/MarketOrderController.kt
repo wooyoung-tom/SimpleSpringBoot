@@ -46,11 +46,11 @@ open class MarketOrderController(
         return marketOrderDetailService.editOrderDetail(request)
     }
 
-    // 오더 상태 수정 (결제 완료)
-    @PostMapping("/payment/paid")
-    open fun orderPaid(
+    // 오더 상태 수정
+    @PostMapping("/payment")
+    open fun orderPayment(
         @RequestBody request: MarketPaymentRequest
     ): MarketPaymentResponse {
-        return marketOrderService.orderPaid(request)
+        return marketOrderService.orderPayment(request)
     }
 }
