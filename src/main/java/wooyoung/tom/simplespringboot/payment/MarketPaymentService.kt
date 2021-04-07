@@ -3,6 +3,8 @@ package wooyoung.tom.simplespringboot.payment
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import wooyoung.tom.simplespringboot.order.MarketOrderRepository
+import wooyoung.tom.simplespringboot.order.dto.MarketOrderIncludingDetails
+import wooyoung.tom.simplespringboot.payment.dto.MarketPaymentLaterItem
 import wooyoung.tom.simplespringboot.payment.dto.MarketPaymentLaterResponse
 
 @Service
@@ -23,19 +25,38 @@ open class MarketPaymentService(
         // 결제 item list (Datetime 오름차순)
         val paymentItems = marketPaymentRepository.findAllByIdInOrderByDatetimeAsc(paymentIds)
 
+        val paymentList = paymentItems.map {
+            MarketPaymentLaterItem(
+                id = it.id,
+                method = it.method,
+                status = it.status,
+                datetime = it.datetime,
+                orderItems = it.orderItems.map { order ->
+                    MarketOrderIncludingDetails(
+                        orderId = order.id,
+                        restaurant = order.restaurant,
+                        totalPrice = order.orderDetailList.sumOf { orderDetail ->
+                            (orderDetail.menu.price * orderDetail.menuCount)
+                        },
+                        orderDetailList = order.orderDetailList
+                    )
+                }
+            )
+        }
+
         return when (paymentItems.isEmpty()) {
             true -> {
                 MarketPaymentLaterResponse(
                     code = "Empty",
                     message = "결제 대기중인 주문이 없습니다.",
-                    paymentList = paymentItems
+                    paymentList = paymentList
                 )
             }
             false -> {
                 MarketPaymentLaterResponse(
                     code = "Success",
                     message = "결제 대기중인 주문이 ${paymentItems.size}건 존재합니다.",
-                    paymentList = paymentItems
+                    paymentList = paymentList
                 )
             }
         }
