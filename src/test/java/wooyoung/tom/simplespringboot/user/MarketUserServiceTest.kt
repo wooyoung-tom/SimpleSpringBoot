@@ -22,11 +22,12 @@ internal open class MarketUserServiceTest {
         // given
         val newUser = MarketUserEntity(
             userId = "test1",
-            password = "test"
+            password = "test",
+            username = "테스트"
         )
 
         // 이름을 통해 존재하는 사용자인지 확인
-        val foundUser = marketUserRepository.findMarketUserByUserName(newUser.userId)
+        val foundUser = marketUserRepository.findMarketUserByUserId(newUser.userId)
 
         Assertions.assertThat(foundUser).isEqualTo(null)
 
@@ -41,11 +42,12 @@ internal open class MarketUserServiceTest {
     fun `로그인`() {
         val givenUser = MarketUserSignUpRequest(
             userId = "test",
-            password = "test"
+            password = "test",
+            username = "테스트"
         )
 
         // 이름으로 존재하는 사용자인지 확인
-        val foundUser = marketUserRepository.findMarketUserByUserName(givenUser.userId)
+        val foundUser = marketUserRepository.findMarketUserByUserId(givenUser.userId)
 
         // 찾은 사용자가 null 이 아니어야 한다.
         Assertions.assertThat(foundUser).isNotNull
