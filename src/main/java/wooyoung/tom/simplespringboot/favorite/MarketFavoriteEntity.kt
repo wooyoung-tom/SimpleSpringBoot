@@ -10,9 +10,7 @@ data class MarketFavoriteEntity(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    /**
-     * TODO user_id 연관관계 설정
-     */
+    // favorite 는 user 알 필요가 아직은 없다.
     @Column(name = "user_id")
     val userId: Long,
 

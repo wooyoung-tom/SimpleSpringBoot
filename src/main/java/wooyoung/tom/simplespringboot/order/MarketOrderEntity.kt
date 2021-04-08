@@ -13,9 +13,7 @@ data class MarketOrderEntity(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    /**
-     * TODO user_id 연관관계 설정
-     */
+    // order 가 user 를 알 필요가 아직 없다.
     @Column(name = "user_id")
     val userId: Long,
 
