@@ -20,7 +20,9 @@ open class MarketRestaurantService(
     // 음식점 탐색 pagination
     @Transactional
     open fun findCategorizedRestaurants(
-        category: String, latitude: String, longitude: String, pageable: Pageable
+        category: String, latitude: String, longitude: String, pageable: Pageable,
+        distance: Boolean = false,
+        review: Boolean = false
     ): PagedRestaurantResponse {
         // 페이징 결과물
         val pagingResult = marketRestaurantRepository
@@ -61,10 +63,26 @@ open class MarketRestaurantService(
             )
         }
 
-        return PagedRestaurantResponse(
-            meta = metaData,
-            body = mappedContents
-        )
+        return when {
+            distance -> {
+                PagedRestaurantResponse(
+                    meta = metaData,
+                    body = mappedContents.sortedBy { it.distance }
+                )
+            }
+            review -> {
+                PagedRestaurantResponse(
+                    meta = metaData,
+                    body = mappedContents.sortedByDescending { it.reviewCount }
+                )
+            }
+            else -> {
+                PagedRestaurantResponse(
+                    meta = metaData,
+                    body = mappedContents
+                )
+            }
+        }
     }
 
     // 즐겨찾기 해놓은 음식점 찾기

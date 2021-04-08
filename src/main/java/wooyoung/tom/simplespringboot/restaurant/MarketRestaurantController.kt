@@ -30,7 +30,6 @@ open class MarketRestaurantController(
         @PageableDefault(size = 15, page = 0) pageable: Pageable
     ): PagedRestaurantResponse {
         val filteredPageable: Pageable = when {
-            // TODO 거리순, 리뷰 많은 순에 대한 필터링 구현 (distance, review)
             literal -> {
                 PageRequest.of(
                     pageable.pageNumber,
@@ -41,8 +40,14 @@ open class MarketRestaurantController(
             else -> pageable
         }
 
-        return marketRestaurantService
-            .findCategorizedRestaurants(category, lat, lng, filteredPageable)
+        return when {
+            distance -> marketRestaurantService
+                .findCategorizedRestaurants(category, lat, lng, filteredPageable, distance = true)
+            review -> marketRestaurantService
+                .findCategorizedRestaurants(category, lat, lng, filteredPageable, review = true)
+            else -> marketRestaurantService
+                .findCategorizedRestaurants(category, lat, lng, filteredPageable)
+        }
     }
 
     // 즐겨찾기 해놓은 음식점 검색
