@@ -3,8 +3,8 @@ package wooyoung.tom.simplespringboot.favorite
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import wooyoung.tom.simplespringboot.utils.CommonSimpleResponse
-import wooyoung.tom.simplespringboot.favorite.dto.CheckFavoriteResponse
-import wooyoung.tom.simplespringboot.favorite.dto.FavoriteRequest
+import wooyoung.tom.simplespringboot.favorite.dto.FavoriteCheckResponse
+import wooyoung.tom.simplespringboot.favorite.dto.FavoriteControlRequest
 import wooyoung.tom.simplespringboot.restaurant.MarketRestaurantRepository
 
 @Service
@@ -14,18 +14,18 @@ open class MarketFavoriteService(
 ) {
 
     // 내가 즐겨찾기 해놓은 식당인지 판별
-    open fun checkMyFavoriteRestaurant(userId: Long, restaurantId: Long): CheckFavoriteResponse {
+    open fun checkMyFavoriteRestaurant(userId: Long, restaurantId: Long): FavoriteCheckResponse {
         val result = marketFavoriteRepository
             .findMarketFavoriteEntityByUserIdAndRestaurantId(userId, restaurantId)
 
         return if (result == null) {
-            CheckFavoriteResponse(
+            FavoriteCheckResponse(
                 code = "Success",
                 message = "즐겨찾기가 되어있지 않습니다.",
                 favorite = false
             )
         } else {
-            CheckFavoriteResponse(
+            FavoriteCheckResponse(
                 code = "Success",
                 message = "즐겨찾기 등록된 음식점입니다.",
                 favorite = true
@@ -35,7 +35,7 @@ open class MarketFavoriteService(
 
     // 즐겨찾기 등록
     @Transactional
-    open fun registerFavoriteRestaurant(info: FavoriteRequest): CommonSimpleResponse {
+    open fun registerFavoriteRestaurant(info: FavoriteControlRequest): CommonSimpleResponse {
         // 음식점 찾아오기
         val restaurant = marketRestaurantRepository.findById(info.restaurantId)
 
@@ -78,7 +78,7 @@ open class MarketFavoriteService(
 
     // 즐겨찾기 지우기
     @Transactional
-    open fun deleteFavorite(info: FavoriteRequest): CommonSimpleResponse {
+    open fun deleteFavorite(info: FavoriteControlRequest): CommonSimpleResponse {
         val foundResult = marketFavoriteRepository
             .findMarketFavoriteEntityByUserIdAndRestaurantId(info.userId, info.restaurantId)
 

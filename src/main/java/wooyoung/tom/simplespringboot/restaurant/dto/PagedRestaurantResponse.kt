@@ -1,4 +1,4 @@
-package wooyoung.tom.simplespringboot.restaurant.data
+package wooyoung.tom.simplespringboot.restaurant.dto
 
 import wooyoung.tom.simplespringboot.utils.PagedMetaData
 

@@ -1,6 +1,6 @@
 package wooyoung.tom.simplespringboot.favorite.dto
 
-data class FavoriteRequest(
+data class FavoriteControlRequest(
     val userId: Long,
     val restaurantId: Long
 )

@@ -1,4 +1,4 @@
-package wooyoung.tom.simplespringboot.payment.dto
+package wooyoung.tom.simplespringboot.payment.dto.later
 
 data class MarketPaymentLaterResponse(
     val code: String,

@@ -1,7 +1,7 @@
-package wooyoung.tom.simplespringboot.order.dto
+package wooyoung.tom.simplespringboot.order.dto.find
 
 import wooyoung.tom.simplespringboot.order.detail.MarketOrderDetailEntity
-import wooyoung.tom.simplespringboot.restaurant.data.MarketRestaurantEntity
+import wooyoung.tom.simplespringboot.restaurant.MarketRestaurantEntity
 
 data class MarketOrderFindResponseItem(
 

@@ -5,7 +5,7 @@ import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
 import org.springframework.data.web.PageableDefault
 import org.springframework.web.bind.annotation.*
-import wooyoung.tom.simplespringboot.restaurant.data.PagedRestaurantResponse
+import wooyoung.tom.simplespringboot.restaurant.dto.PagedRestaurantResponse
 
 @RestController
 @RequestMapping("/restaurants")

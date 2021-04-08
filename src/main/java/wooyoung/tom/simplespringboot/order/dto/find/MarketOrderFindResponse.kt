@@ -1,4 +1,4 @@
-package wooyoung.tom.simplespringboot.order.dto
+package wooyoung.tom.simplespringboot.order.dto.find
 
 data class MarketOrderFindResponse(
     val code: String,

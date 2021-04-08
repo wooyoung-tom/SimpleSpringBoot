@@ -5,7 +5,7 @@ import org.springframework.transaction.annotation.Transactional
 import wooyoung.tom.simplespringboot.utils.CommonSimpleResponse
 import wooyoung.tom.simplespringboot.menu.MarketMenuRepository
 import wooyoung.tom.simplespringboot.order.MarketOrderRepository
-import wooyoung.tom.simplespringboot.order.dto.MarketOrderDetailEditRequest
+import wooyoung.tom.simplespringboot.order.dto.detail.MarketOrderDetailEditRequest
 
 @Service
 open class MarketOrderDetailService(

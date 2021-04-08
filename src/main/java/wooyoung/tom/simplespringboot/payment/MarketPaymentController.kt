@@ -2,7 +2,7 @@ package wooyoung.tom.simplespringboot.payment
 
 import org.springframework.web.bind.annotation.*
 import wooyoung.tom.simplespringboot.utils.CommonSimpleResponse
-import wooyoung.tom.simplespringboot.payment.dto.MarketPaymentLaterResponse
+import wooyoung.tom.simplespringboot.payment.dto.later.MarketPaymentLaterResponse
 
 @RestController
 @RequestMapping("/payment")

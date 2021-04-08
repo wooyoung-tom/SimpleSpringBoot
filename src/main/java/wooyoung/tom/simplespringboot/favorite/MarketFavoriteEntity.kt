@@ -1,6 +1,6 @@
 package wooyoung.tom.simplespringboot.favorite
 
-import wooyoung.tom.simplespringboot.restaurant.data.MarketRestaurantEntity
+import wooyoung.tom.simplespringboot.restaurant.MarketRestaurantEntity
 import javax.persistence.*
 
 @Entity

@@ -2,11 +2,10 @@ package wooyoung.tom.simplespringboot.user
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import wooyoung.tom.simplespringboot.user.data.MarketUserEntity
 import wooyoung.tom.simplespringboot.utils.CommonSimpleResponse
-import wooyoung.tom.simplespringboot.user.data.MarketUserSignInRequest
-import wooyoung.tom.simplespringboot.user.data.MarketUserSignInResponse
-import wooyoung.tom.simplespringboot.user.data.MarketUserSignUpRequest
+import wooyoung.tom.simplespringboot.user.dto.sign_in.MarketUserSignInRequest
+import wooyoung.tom.simplespringboot.user.dto.sign_in.MarketUserSignInResponse
+import wooyoung.tom.simplespringboot.user.dto.sign_up.MarketUserSignUpRequest
 
 @Service
 open class MarketUserService(

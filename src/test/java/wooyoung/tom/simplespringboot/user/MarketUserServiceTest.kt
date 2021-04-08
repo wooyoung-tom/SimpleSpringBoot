@@ -7,8 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.transaction.annotation.Transactional
-import wooyoung.tom.simplespringboot.user.data.MarketUserEntity
-import wooyoung.tom.simplespringboot.user.data.MarketUserSignUpRequest
+import wooyoung.tom.simplespringboot.user.dto.sign_up.MarketUserSignUpRequest
 
 @RunWith(SpringRunner::class)
 @SpringBootTest

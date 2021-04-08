@@ -2,18 +2,14 @@ package wooyoung.tom.simplespringboot.order.detail
 
 import org.assertj.core.api.Assertions
 import org.junit.Test
-import org.junit.jupiter.api.Assertions.*
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.transaction.annotation.Transactional
-import wooyoung.tom.simplespringboot.menu.MarketMenuEntity
 import wooyoung.tom.simplespringboot.menu.MarketMenuRepository
 import wooyoung.tom.simplespringboot.order.MarketOrderRepository
-import wooyoung.tom.simplespringboot.order.dto.MarketOrderDetailEditRequest
-import wooyoung.tom.simplespringboot.order.dto.MarketOrderSaveRequest
-import wooyoung.tom.simplespringboot.order.dto.MarketOrderSaveRequestItem
+import wooyoung.tom.simplespringboot.order.dto.save.MarketOrderSaveRequestItem
 
 @RunWith(SpringRunner::class)
 @SpringBootTest

@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import wooyoung.tom.simplespringboot.utils.CommonSimpleResponse
-import wooyoung.tom.simplespringboot.user.data.MarketUserSignInRequest
-import wooyoung.tom.simplespringboot.user.data.MarketUserSignInResponse
-import wooyoung.tom.simplespringboot.user.data.MarketUserSignUpRequest
+import wooyoung.tom.simplespringboot.user.dto.sign_in.MarketUserSignInRequest
+import wooyoung.tom.simplespringboot.user.dto.sign_in.MarketUserSignInResponse
+import wooyoung.tom.simplespringboot.user.dto.sign_up.MarketUserSignUpRequest
 
 @RestController
 @RequestMapping("/users")

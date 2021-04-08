@@ -1,4 +1,4 @@
-package wooyoung.tom.simplespringboot.payment.dto
+package wooyoung.tom.simplespringboot.payment.dto.pay
 
 import wooyoung.tom.simplespringboot.payment.MarketPaymentEntity
 

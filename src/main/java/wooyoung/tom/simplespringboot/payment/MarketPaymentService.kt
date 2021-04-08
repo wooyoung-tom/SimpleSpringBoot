@@ -4,9 +4,9 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import wooyoung.tom.simplespringboot.utils.CommonSimpleResponse
 import wooyoung.tom.simplespringboot.order.MarketOrderRepository
-import wooyoung.tom.simplespringboot.order.dto.MarketOrderIncludingDetails
-import wooyoung.tom.simplespringboot.payment.dto.MarketPaymentLaterItem
-import wooyoung.tom.simplespringboot.payment.dto.MarketPaymentLaterResponse
+import wooyoung.tom.simplespringboot.order.dto.find.MarketOrderFindResponseItem
+import wooyoung.tom.simplespringboot.payment.dto.later.MarketPaymentLaterItem
+import wooyoung.tom.simplespringboot.payment.dto.later.MarketPaymentLaterResponse
 import java.time.LocalDateTime
 
 @Service
@@ -34,7 +34,7 @@ open class MarketPaymentService(
                 status = it.status,
                 datetime = it.datetime,
                 orderItems = it.orderItems.map { order ->
-                    MarketOrderIncludingDetails(
+                    MarketOrderFindResponseItem(
                         orderId = order.id,
                         restaurant = order.restaurant,
                         totalPrice = order.orderDetailList.sumOf { orderDetail ->

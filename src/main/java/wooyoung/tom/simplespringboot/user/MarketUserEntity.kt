@@ -1,4 +1,4 @@
-package wooyoung.tom.simplespringboot.user.data
+package wooyoung.tom.simplespringboot.user
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*

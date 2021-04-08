@@ -1,4 +1,4 @@
-package wooyoung.tom.simplespringboot.payment.dto
+package wooyoung.tom.simplespringboot.payment.dto.pay
 
 data class MarketPaymentRequest(
     val orders: List<Long>,

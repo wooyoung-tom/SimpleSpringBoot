@@ -4,9 +4,9 @@ import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import wooyoung.tom.simplespringboot.favorite.MarketFavoriteRepository
-import wooyoung.tom.simplespringboot.restaurant.data.PagedRestaurantItem
+import wooyoung.tom.simplespringboot.restaurant.dto.PagedRestaurantItem
 import wooyoung.tom.simplespringboot.utils.PagedMetaData
-import wooyoung.tom.simplespringboot.restaurant.data.PagedRestaurantResponse
+import wooyoung.tom.simplespringboot.restaurant.dto.PagedRestaurantResponse
 import wooyoung.tom.simplespringboot.review.MarketReviewRepository
 import wooyoung.tom.simplespringboot.utils.getDistance
 
