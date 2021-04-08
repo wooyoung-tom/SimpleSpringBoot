@@ -1,6 +1,7 @@
 package wooyoung.tom.simplespringboot.user
 
 import org.springframework.data.jpa.repository.JpaRepository
+import wooyoung.tom.simplespringboot.user.data.MarketUserEntity
 
 interface MarketUserRepository : JpaRepository<MarketUserEntity, Long> {
 

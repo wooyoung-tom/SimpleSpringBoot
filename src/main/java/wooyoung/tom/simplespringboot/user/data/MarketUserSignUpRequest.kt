@@ -1,4 +1,4 @@
-package wooyoung.tom.simplespringboot.user.dto
+package wooyoung.tom.simplespringboot.user.data
 
 data class MarketUserSignUpRequest(
     val userId: String,

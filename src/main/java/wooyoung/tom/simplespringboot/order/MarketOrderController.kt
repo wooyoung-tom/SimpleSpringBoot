@@ -1,7 +1,7 @@
 package wooyoung.tom.simplespringboot.order
 
 import org.springframework.web.bind.annotation.*
-import wooyoung.tom.simplespringboot.CommonSimpleResponse
+import wooyoung.tom.simplespringboot.utils.CommonSimpleResponse
 import wooyoung.tom.simplespringboot.order.detail.MarketOrderDetailService
 import wooyoung.tom.simplespringboot.order.dto.*
 import wooyoung.tom.simplespringboot.payment.dto.MarketPaymentRequest

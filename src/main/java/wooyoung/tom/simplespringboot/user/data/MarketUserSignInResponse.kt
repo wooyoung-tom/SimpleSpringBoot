@@ -1,6 +1,4 @@
-package wooyoung.tom.simplespringboot.user.dto
-
-import wooyoung.tom.simplespringboot.user.MarketUserEntity
+package wooyoung.tom.simplespringboot.user.data
 
 data class MarketUserSignInResponse(
     val code: String,

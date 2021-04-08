@@ -1,7 +1,7 @@
 package wooyoung.tom.simplespringboot.payment
 
 import org.springframework.web.bind.annotation.*
-import wooyoung.tom.simplespringboot.CommonSimpleResponse
+import wooyoung.tom.simplespringboot.utils.CommonSimpleResponse
 import wooyoung.tom.simplespringboot.payment.dto.MarketPaymentLaterResponse
 
 @RestController

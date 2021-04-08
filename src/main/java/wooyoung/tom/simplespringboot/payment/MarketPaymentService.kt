@@ -2,7 +2,7 @@ package wooyoung.tom.simplespringboot.payment
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import wooyoung.tom.simplespringboot.CommonSimpleResponse
+import wooyoung.tom.simplespringboot.utils.CommonSimpleResponse
 import wooyoung.tom.simplespringboot.order.MarketOrderRepository
 import wooyoung.tom.simplespringboot.order.dto.MarketOrderIncludingDetails
 import wooyoung.tom.simplespringboot.payment.dto.MarketPaymentLaterItem

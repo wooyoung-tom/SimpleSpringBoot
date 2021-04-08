@@ -2,7 +2,7 @@ package wooyoung.tom.simplespringboot.order
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import wooyoung.tom.simplespringboot.order.detail.MarketOrderDetailEntity
-import wooyoung.tom.simplespringboot.restaurant.MarketRestaurantEntity
+import wooyoung.tom.simplespringboot.restaurant.data.MarketRestaurantEntity
 import java.time.LocalDate
 import javax.persistence.*
 

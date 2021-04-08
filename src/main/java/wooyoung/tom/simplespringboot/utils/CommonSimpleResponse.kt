@@ -1,4 +1,4 @@
-package wooyoung.tom.simplespringboot
+package wooyoung.tom.simplespringboot.utils
 
 data class CommonSimpleResponse(
     val code: String,

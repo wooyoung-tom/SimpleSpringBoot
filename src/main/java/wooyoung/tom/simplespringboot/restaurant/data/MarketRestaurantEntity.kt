@@ -1,4 +1,4 @@
-package wooyoung.tom.simplespringboot.restaurant
+package wooyoung.tom.simplespringboot.restaurant.data
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import wooyoung.tom.simplespringboot.favorite.MarketFavoriteEntity
