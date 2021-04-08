@@ -1,9 +1,7 @@
 package wooyoung.tom.simplespringboot.payment
 
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
+import wooyoung.tom.simplespringboot.CommonSimpleResponse
 import wooyoung.tom.simplespringboot.payment.dto.MarketPaymentLaterResponse
 
 @RestController
@@ -17,5 +15,12 @@ open class MarketPaymentController(
         @PathVariable id: Long,
     ): MarketPaymentLaterResponse {
         return marketPaymentService.findNotPaidPayment(id)
+    }
+
+    @PatchMapping("/{paymentId}")
+    fun cancelPayment(
+        @PathVariable paymentId: Long
+    ): CommonSimpleResponse {
+        return marketPaymentService.cancelPayment(paymentId)
     }
 }

@@ -15,4 +15,7 @@ interface MarketOrderRepository : JpaRepository<MarketOrderEntity, Long> {
     ): MarketOrderEntity?
 
     fun findAllByIdIn(idList: List<Long>): List<MarketOrderEntity>
+
+    // 결제 id 통해 order 가져옴
+    fun findAllByPaymentId(paymentId: Long): List<MarketOrderEntity>
 }
