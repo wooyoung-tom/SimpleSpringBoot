@@ -6,11 +6,6 @@ import wooyoung.tom.simplespringboot.menu.MarketMenuEntity
 import wooyoung.tom.simplespringboot.review.MarketReviewEntity
 import javax.persistence.*
 
-/**
- * @param roadAddress 도로명 주소 nullable
- * @param jibunAddress 지번 주소 nullable
- * @param phoneNumber 전화번호 nullable
- */
 @Entity
 @Table(name = "market_restaurant")
 data class MarketRestaurantEntity(
@@ -21,14 +16,16 @@ data class MarketRestaurantEntity(
     @Column(name = "name")
     val name: String,
 
+    // Address Nullable
     @Column(name = "road_addr")
-    val roadAddress: String? = "",
+    val roadAddress: String? = null,
 
     @Column(name = "jibun_addr")
-    val jibunAddress: String? = "",
+    val jibunAddress: String? = null,
 
+    // phone_number Nullable
     @Column(name = "phone_number")
-    val phoneNumber: String? = "",
+    val phoneNumber: String? = null,
 
     @Column(name = "longitude")
     val longitude: String,

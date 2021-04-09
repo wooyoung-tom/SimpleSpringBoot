@@ -1,6 +1,9 @@
 package wooyoung.tom.simplespringboot.user
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import wooyoung.tom.simplespringboot.favorite.MarketFavoriteEntity
+import wooyoung.tom.simplespringboot.order.MarketOrderEntity
+import wooyoung.tom.simplespringboot.review.MarketReviewEntity
 import javax.persistence.*
 
 @Entity
@@ -18,10 +21,20 @@ data class MarketUserEntity(
     val password: String,
 
     @Column(name = "username")
-    val username: String
+    val username: String,
 
-    /**
-     * TODO favorite, review, order 연관관계 설정
-     *  모두 user_id 로 불러올 수 있음
-     */
+    // order
+    @JsonIgnore
+    @OneToMany(mappedBy = "userId", fetch = FetchType.LAZY)
+    val orderList: List<MarketOrderEntity> = ArrayList(),
+
+    // review
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    val reviewList: List<MarketReviewEntity> = ArrayList(),
+
+    // favorite
+    @JsonIgnore
+    @OneToMany(mappedBy = "userId", fetch = FetchType.LAZY)
+    val favoriteList: List<MarketFavoriteEntity> = ArrayList()
 )

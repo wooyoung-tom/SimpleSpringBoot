@@ -20,9 +20,6 @@ data class MarketOrderEntity(
     @Column(name = "payment_id")
     var paymentId: Long? = null,
 
-    /**
-     * @see restaurant [MarketRestaurantEntity] mapping
-     */
     @JsonIgnore
     @OneToOne
     @JoinColumn(name = "restaurant_id")
@@ -35,9 +32,6 @@ data class MarketOrderEntity(
     @Column(name = "order_status")
     var orderStatus: String = "Ready",
 
-    /**
-     * @see orderDetailList [MarketOrderDetailEntity.marketOrder] mapping
-     */
     @JsonIgnore
     @OneToMany(mappedBy = "marketOrder", fetch = FetchType.LAZY)
     val orderDetailList: List<MarketOrderDetailEntity> = ArrayList()

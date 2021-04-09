@@ -1,5 +1,6 @@
 package wooyoung.tom.simplespringboot.review
 
+import wooyoung.tom.simplespringboot.user.MarketUserEntity
 import javax.persistence.*
 
 @Entity
@@ -9,11 +10,10 @@ data class MarketReviewEntity(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    /**
-     * TODO user_id 연관관계 설정
-     */
-    @Column(name = "user_id")
-    val userId: Long,
+    // 리뷰를 쓴 사용자 정보
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    val user: MarketUserEntity,
 
     @Column(name = "restaurant_id")
     val restaurantId: Long,

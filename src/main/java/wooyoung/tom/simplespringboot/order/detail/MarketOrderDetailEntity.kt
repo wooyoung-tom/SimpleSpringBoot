@@ -15,9 +15,6 @@ data class MarketOrderDetailEntity(
     @JoinColumn(name = "order_id")
     val marketOrder: MarketOrderEntity,
 
-    /**
-     * @see menu [MarketMenuEntity] mapping
-     */
     @OneToOne
     @JoinColumn(name = "menu_id")
     val menu: MarketMenuEntity,
