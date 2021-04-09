@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional
 import wooyoung.tom.simplespringboot.menu.MarketMenuRepository
 import wooyoung.tom.simplespringboot.order.detail.MarketOrderDetailEntity
 import wooyoung.tom.simplespringboot.order.detail.MarketOrderDetailRepository
+import wooyoung.tom.simplespringboot.payment.MarketPaymentRepository
 import wooyoung.tom.simplespringboot.restaurant.MarketRestaurantRepository
 import java.time.LocalDate
 

@@ -1,6 +1,7 @@
 package wooyoung.tom.simplespringboot.payment
 
 import org.springframework.web.bind.annotation.*
+import wooyoung.tom.simplespringboot.payment.dto.history.MarketPaymentHistoryResponse
 import wooyoung.tom.simplespringboot.utils.CommonSimpleResponse
 import wooyoung.tom.simplespringboot.payment.dto.later.MarketPaymentLaterResponse
 
@@ -22,5 +23,12 @@ open class MarketPaymentController(
         @PathVariable paymentId: Long
     ): CommonSimpleResponse {
         return marketPaymentService.cancelPayment(paymentId)
+    }
+
+    @GetMapping("/history/{userId}")
+    fun getPaymentHistory(
+        @PathVariable userId: Long
+    ): MarketPaymentHistoryResponse {
+        return marketPaymentService.findPaymentHistory(userId)
     }
 }

@@ -5,6 +5,9 @@ import org.springframework.transaction.annotation.Transactional
 import wooyoung.tom.simplespringboot.utils.CommonSimpleResponse
 import wooyoung.tom.simplespringboot.order.MarketOrderRepository
 import wooyoung.tom.simplespringboot.order.dto.find.MarketOrderFindResponseItem
+import wooyoung.tom.simplespringboot.payment.dto.history.MarketPaymentHistoryItem
+import wooyoung.tom.simplespringboot.payment.dto.history.MarketPaymentHistoryOrderItem
+import wooyoung.tom.simplespringboot.payment.dto.history.MarketPaymentHistoryResponse
 import wooyoung.tom.simplespringboot.payment.dto.later.MarketPaymentLaterItem
 import wooyoung.tom.simplespringboot.payment.dto.later.MarketPaymentLaterResponse
 import java.time.LocalDateTime
@@ -112,6 +115,61 @@ open class MarketPaymentService(
         return CommonSimpleResponse(
             code = "Success",
             message = "결제 취소를 완료하였습니다."
+        )
+    }
+
+    @Transactional
+    open fun findPaymentHistory(userId: Long): MarketPaymentHistoryResponse {
+        val orders = marketOrderRepository.findAllByUserId(userId)
+
+        if (orders.isEmpty()) {
+            return MarketPaymentHistoryResponse(
+                code = "Failed",
+                message = "오더를 찾지 못했습니다."
+            )
+        }
+
+        val paymentIds = orders.filter { it.paymentId != null }
+            .groupBy { it.paymentId!! }.keys.toList()
+
+        if (paymentIds.isEmpty()) {
+            return MarketPaymentHistoryResponse(
+                code = "Failed",
+                message = "결제정보를 찾지 못했습니다."
+            )
+        }
+
+        val payments = marketPaymentRepository.findAllByIdInOrderByDatetimeAsc(paymentIds)
+
+        if (payments.isEmpty()) {
+            return MarketPaymentHistoryResponse(
+                code = "Failed",
+                message = "결제정보를 찾지 못했습니다."
+            )
+        }
+
+        return MarketPaymentHistoryResponse(
+            code = "Success",
+            message = "결제정보 ${payments.size}건을 찾았습니다.",
+            histories = payments.map { payment ->
+                MarketPaymentHistoryItem(
+                    method = payment.method,
+                    date = payment.datetime,
+                    orders = payment.orderItems.map { order ->
+                        MarketPaymentHistoryOrderItem(
+                            restaurantName = order.restaurant.name,
+                            orderPrice = order.orderDetailList.sumOf { orderDetail ->
+                                (orderDetail.menuCount * orderDetail.menu.price)
+                            }
+                        )
+                    },
+                    price = payment.orderItems.sumOf { order ->
+                        order.orderDetailList.sumOf { orderDetail ->
+                            (orderDetail.menuCount * orderDetail.menu.price)
+                        }
+                    }
+                )
+            }
         )
     }
 }

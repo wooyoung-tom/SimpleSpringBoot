@@ -67,4 +67,23 @@ internal open class MarketPaymentServiceTest {
 
         marketOrderRepository.saveAll(orders)
     }
+
+    @Test
+    fun `user id로 오더 조회 후 결제 정보 가져오기`() {
+        val givenUserId: Long = 12
+
+        val orders = marketOrderRepository.findAllByUserId(givenUserId)
+
+        Assertions.assertThat(orders).isNotEmpty
+
+        // 결제 id 가져온다.
+        val paymentIds = orders.filter { it.paymentId != null }
+            .groupBy { it.paymentId!! }.keys.toList()
+
+        Assertions.assertThat(paymentIds).isNotEmpty
+
+        val payments = marketPaymentRepository.findAllByIdInOrderByDatetimeAsc(paymentIds)
+
+        Assertions.assertThat(payments).isNotEmpty
+    }
 }
