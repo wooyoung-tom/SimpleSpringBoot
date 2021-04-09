@@ -153,6 +153,7 @@ open class MarketPaymentService(
             message = "결제정보 ${payments.size}건을 찾았습니다.",
             histories = payments.map { payment ->
                 MarketPaymentHistoryItem(
+                    id = payment.id,
                     method = payment.method,
                     date = payment.datetime,
                     orders = payment.orderItems.map { order ->

@@ -70,7 +70,7 @@ open class MarketOrderService(
         // 새로 만든 오더 등록
         try {
             marketOrderRepository.save(newOrder)
-        } catch (npe: NullPointerException) {
+        } catch (e: IllegalArgumentException) {
             return MarketOrderSaveResponse(
                 code = "Failed",
                 message = "오더 생성에 실패했습니다."
@@ -99,7 +99,7 @@ open class MarketOrderService(
             // Order Detail save
             try {
                 marketOrderDetailRepository.save(newOrderDetail)
-            } catch (npe: NullPointerException) {
+            } catch (e: IllegalArgumentException) {
                 return MarketOrderSaveResponse(
                     code = "Failed",
                     message = "오더 상세정보 생성에 실패했습니다."
@@ -170,7 +170,7 @@ open class MarketOrderService(
         // 오더 수정된 상태 저장
         try {
             marketOrderRepository.save(order)
-        } catch (npe: NullPointerException) {
+        } catch (e: IllegalArgumentException) {
             return CommonSimpleResponse(
                 code = "Failed",
                 message = "수정할 오더를 찾지 못했습니다."

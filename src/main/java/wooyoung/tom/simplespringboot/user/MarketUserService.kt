@@ -28,10 +28,10 @@ open class MarketUserService(
 
                 try {
                     marketUserRepository.save(newUser)
-                } catch (npe: NullPointerException) {
+                } catch (e: IllegalArgumentException) {
                     return CommonSimpleResponse(
                         code = "Failed",
-                        message = "${npe.message}"
+                        message = "유저 생성에 실패했습니다."
                     )
                 }
             }

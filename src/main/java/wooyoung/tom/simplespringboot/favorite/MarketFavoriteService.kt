@@ -59,7 +59,7 @@ open class MarketFavoriteService(
 
             try {
                 marketFavoriteRepository.save(newFavorite)
-            } catch (npe: NullPointerException) {
+            } catch (e: IllegalArgumentException) {
                 return CommonSimpleResponse(
                     code = "Failed",
                     message = "즐겨찾기를 생성하는 데 실패했습니다."
@@ -98,7 +98,7 @@ open class MarketFavoriteService(
 
             try {
                 marketFavoriteRepository.save(foundResult)
-            } catch (npe: NullPointerException) {
+            } catch (e: IllegalArgumentException) {
                 return CommonSimpleResponse(
                     code = "Failed",
                     message = "즐겨찾기 상태를 변경하는데 실패했습니다."

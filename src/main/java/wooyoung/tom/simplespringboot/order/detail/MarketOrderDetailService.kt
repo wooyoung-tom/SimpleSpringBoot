@@ -45,7 +45,7 @@ open class MarketOrderDetailService(
 
         try {
             marketOrderDetailRepository.saveAll(orderDetails)
-        } catch (npe: NullPointerException) {
+        } catch (e: IllegalArgumentException) {
             return CommonSimpleResponse(
                 code = "Failed",
                 message = "오더 상세정보를 찾을 수 없습니다."
